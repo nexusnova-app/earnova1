@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#081426">
+<title>EARNOVA - Work Earn Grow</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#081426;color:#fff}
+button,input,textarea,select{font:inherit}
+button{border:0;border-radius:9px;padding:12px 15px;cursor:pointer;font-weight:bold}
+button:disabled{opacity:.5;cursor:not-allowed}
+input,textarea,select{width:100%;padding:13px;margin:8px 0 14px;background:#10243c;color:white;border:1px solid #304760;border-radius:9px}
+textarea{min-height:90px}
+label{font-size:13px;color:#b9c7d8}
+.gold{background:#edbd62;color:#152033}
+.dark{background:#263d58;color:white}
+.red{background:#963e4b;color:white}
+.green{background:#176b50;color:white}
+.hidden{display:none!important}
+header{min-height:65px;background:#0d1d32;border-bottom:1px solid #29405b;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;gap:10px}
+.logo{font-size:23px;font-weight:900;color:#edbd62;letter-spacing:1px}
+.wrap{max-width:1150px;margin:24px auto;padding:12px}
+.card{background:#102139;border:1px solid #2b405b;border-radius:14px;padding:18px;margin-bottom:16px}
+h2{font-size:21px;margin-bottom:12px}
+h3{font-size:17px;margin-bottom:9px;color:#edbd62}
+p{color:#c3cfdd;line-height:1.55;margin:5px 0}
+.small{font-size:12px;color:#9fb1c7}
+.auth{max-width:460px;margin:40px auto}
+.auth button{margin:5px 0}
+.auth .full{width:100%}
+.center{text-align:center}
+a{color:#edbd62;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:15px 0}
+.stat{background:#152b45;border:1px solid #304760;border-radius:12px;padding:16px}
+.stat strong{display:block;color:#edbd62;font-size:25px;margin-top:9px;overflow-wrap:anywhere}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:15px}
+.sidebar{background:#0d1d32;border:1px solid #2b405b;border-radius:14px;padding:12px;height:max-content}
+.sidebar button{width:100%;text-align:left;background:transparent;color:#d6dfeb;margin:3px 0}
+.sidebar button.active,.sidebar button:hover{background:#edbd62;color:#152033}
+.content{min-width:0}
+.page{display:none}
+.page.active{display:block}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.task{border:1px solid #344c68;padding:15px;border-radius:12px;margin:12px 0;overflow-wrap:anywhere}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row button{flex:1}
+.msg{padding:12px;background:#263d58;border-radius:8px;margin:10px 0;white-space:pre-wrap}
+.badge{display:inline-block;padding:5px 9px;border-radius:20px;background:#263d58;font-size:12px}
+.mode-buttons{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:20px 0}
+.mode-buttons button{width:100%;padding:14px 5px}
+.notice{background:#172d47;border-left:3px solid #edbd62;padding:12px;border-radius:7px;margin:12px 0}
+hr{border:0;border-top:1px solid #304760;margin:15px 0}
+.proof-image{width:100%;max-width:400px;border-radius:10px;border:1px solid #53677f;margin:10px 0}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.auth-tabs button{width:100%}
+.task-link-button{display:block;background:#edbd62;color:#152033;text-align:center;padding:14px;border-radius:9px;text-decoration:none;font-weight:bold;margin:14px 0}
+.task-link-button:hover{background:#ffd98c}
+@media(max-width:700px){
+.layout{grid-template-columns:1fr}
+.sidebar{display:flex;overflow:auto;gap:5px}
+.sidebar button{width:auto;white-space:nowrap}
+.wrap{padding:9px;margin:12px auto}
+.card{padding:14px}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div>
+  <div class="logo">EARNOVA</div>
+  <div class="small">Work • Earn • Grow • Succeed</div>
+ </div>
+ <div id="headerInfo" class="small">Welcome</div>
+</header>
+
+<section id="authScreen" class="wrap">
+ <div class="card auth">
+  <div class="center">
+   <div class="logo">EARNOVA</div>
+   <p>Work • Earn • Grow • Succeed</p>
+  </div>
+  <div class="mode-buttons">
+   <button class="gold" id="memberMode">👤 Member Login</button>
+   <button class="dark" id="adminMode">🛡 Admin Login</button>
+  </div>
+  <div id="loginForm">
+   <h2 class="center" id="loginTitle">Member Login</h2>
+   <div id="memberAuthTabs" class="auth-tabs">
+    <button class="gold" id="emailTab">Email Login</button>
+    <button class="dark" id="phoneTab">Phone OTP</button>
+   </div>
+   <div id="emailLoginBox">
+    <label>Email Address</label>
+    <input id="loginEmail" type="email" placeholder="আপনার ইমেইল">
+    <label>Password</label>
+    <input id="loginPass" type="password" placeholder="আপনার পাসওয়ার্ড">
+    <button class="gold full" id="loginBtn">Login করুন</button>
+    <p class="center"><a id="forgot">পাসওয়ার্ড ভুলে গেছেন?</a></p>
+   </div>
+   <div id="phoneLoginBox" class="hidden">
+    <label>বাংলাদেশি মোবাইল নম্বর</label>
+    <input id="phoneNumber" type="tel" placeholder="01XXXXXXXXX">
+    <button class="gold full" id="sendOtpBtn">OTP পাঠান</button>
+    <div id="otpArea" class="hidden">
+     <label>SMS OTP কোড</label>
+     <input id="otpCode" inputmode="numeric" placeholder="৬ সংখ্যার কোড">
+     <button class="green full" id="verifyOtpBtn">OTP Verify করুন</button>
+    </div>
+    <div id="recaptcha-container"></div>
+    <p class="small">Phone Login-এর জন্য Firebase Phone Authentication চালু থাকতে হবে।</p>
+   </div>
+   <p class="center" id="registerLink">নতুন সদস্য? <a id="goRegister">Registration করুন</a></p>
+   <p class="small center" id="loginHint">সদস্য হিসেবে প্রবেশ করুন।</p>
+  </div>
+  <div id="registerForm" class="hidden">
+   <h2 class="center">Member Registration</h2>
+   <div class="auth-tabs">
+    <button class="gold" id="regEmailTab">Email Registration</button>
+    <button class="dark" id="regPhoneTab">Phone Registration</button>
+   </div>
+   <div id="emailRegisterBox">
+    <label>পূর্ণ নাম</label>
+    <input id="regName" placeholder="আপনার নাম">
+    <label>Email Address</label>
+    <input id="regEmail" type="email" placeholder="আপনার ইমেইল">
+    <label>Password</label>
+    <input id="regPass" type="password" placeholder="কমপক্ষে ৬ অক্ষর">
+    <label>Confirm Password</label>
+    <input id="regConfirm" type="password" placeholder="আবার পাসওয়ার্ড দিন">
+    <label>Referral Code (ঐচ্ছিক)</label>
+    <input id="regReferral" placeholder="Referral Code">
+    <button class="gold full" id="registerBtn">Create Account</button>
+   </div>
+   <div id="phoneRegisterBox" class="hidden">
+    <label>পূর্ণ নাম</label>
+    <input id="phoneRegName" placeholder="আপনার নাম">
+    <label>মোবাইল নম্বর</label>
+    <input id="phoneRegNumber" type="tel" placeholder="01XXXXXXXXX">
+    <label>Referral Code (ঐচ্ছিক)</label>
+    <input id="phoneRegReferral" placeholder="Referral Code">
+    <button class="gold full" id="sendRegOtpBtn">Registration OTP পাঠান</button>
+    <div id="regOtpArea" class="hidden">
+     <label>SMS OTP কোড</label>
+     <input id="regOtpCode" inputmode="numeric" placeholder="৬ সংখ্যার কোড">
+     <button class="green full" id="verifyRegOtpBtn">Registration সম্পন্ন করুন</button>
+    </div>
+    <div id="reg-recaptcha-container"></div>
+   </div>
+   <p class="center">আগে অ্যাকাউন্ট আছে? <a id="goLogin">Login করুন</a></p>
+  </div>
+  <div id="authMessage" class="msg hidden"></div>
+ </div>
+</section>
+
+<section id="memberScreen" class="wrap hidden">
+ <div class="topline card">
+  <div><h2>Member Dashboard</h2><p>স্বাগতম, <b id="memberName"></b></p></div>
+  <button class="red" id="memberLogout">Logout</button>
+ </div>
+ <div class="layout">
+  <nav class="sidebar" id="memberNav">
+   <button class="active" data-page="mOverview">⌂ Overview</button>
+   <button data-page="mTasks">▣ Available Tasks</button>
+   <button data-page="mMyTasks">✓ My Tasks</button>
+   <button data-page="mWallet">◈ My Wallet</button>
+   <button data-page="mWithdraw">⇧ Withdraw</button>
+   <button data-page="mReferral">♧ Referral</button>
+   <button data-page="mProfile">♙ My Profile</button>
+   <button data-page="mSupport">✉ Support</button>
+  </nav>
+  <main class="content">
+   <div class="page active" id="mOverview">
+    <div class="card"><h2>Dashboard Overview</h2><p>আপনার অ্যাকাউন্টের সারসংক্ষেপ।</p></div>
+    <div class="grid">
+     <div class="stat">Available Tasks<strong id="memberTaskCount">0</strong></div>
+     <div class="stat">My Submissions<strong id="memberSubCount">0</strong></div>
+     <div class="stat">Approved Tasks<strong id="memberApproved">0</strong></div>
+     <div class="stat">Wallet Balance<strong id="memberBalance">৳0.00</strong></div>
+    </div>
+    <div class="card"><h3>শুরু করুন</h3><p>কাজ নির্বাচন করুন, নিয়ম মেনে কাজ করে প্রমাণ জমা দিন। Admin যাচাই করবেন।</p><button class="gold" onclick="memberPage('mTasks')">কাজ দেখুন</button></div>
+   </div>
+   <div class="page" id="mTasks"><div class="card"><h2>Available Tasks</h2><div id="memberTasks">লোড হচ্ছে...</div></div></div>
+   <div class="page" id="mMyTasks"><div class="card"><h2>My Tasks / Submission History</h2><div id="mySubmissions">লোড হচ্ছে...</div></div></div>
+   <div class="page" id="mWallet">
+    <div class="card">
+     <h2>My Wallet</h2>
+     <div class="grid">
+      <div class="stat">Available Balance<strong id="walletBalance">৳0.00</strong></div>
+      <div class="stat">Total Withdrawn<strong id="walletWithdrawn">৳0.00</strong></div>
+     </div>
+     <button class="gold" onclick="memberPage('mWithdraw')">Withdraw Money</button>
+    </div>
+    <div class="card"><h3>Transaction History</h3><div id="memberTransactions"></div></div>
+   </div>
+   <div class="page" id="mWithdraw">
+    <div class="card">
+     <h2>Withdraw Money</h2>
+     <p>Wallet Balance: <b id="withdrawBalance">৳0.00</b></p>
+     <label>Payment Method</label>
+     <select id="withdrawMethod"><option value="bKash">bKash</option><option value="Nagad">Nagad</option></select>
+     <label>মোবাইল নম্বর</label><input id="withdrawPhone" placeholder="01XXXXXXXXX">
+     <label>পরিমাণ (৳)</label><input id="withdrawAmount" type="number" min="50" step="1">
+     <div class="notice">আবেদন জমা দিলে টাকা সঙ্গে সঙ্গে কাটা হবে না। Admin যাচাই করে বাস্তব পেমেন্টের পর Paid করবেন।</div>
+     <button class="gold" id="withdrawBtn">Withdrawal Request</button>
+    </div>
+    <div class="card"><h3>My Withdrawal History</h3><div id="myWithdrawals"></div></div>
+   </div>
+   <div class="page" id="mReferral">
+    <div class="card">
+     <h2>My Referral</h2>
+     <p>আপনার Referral Code</p>
+     <h2 id="myReferralCode">—</h2>
+     <button class="gold" id="copyReferral">Copy Referral Code</button>
+     <p>আপনার Referral Link</p>
+     <input id="myReferralLink" readonly>
+     <button class="dark" id="copyReferralLink">Copy Referral Link</button>
+     <div class="grid">
+      <div class="stat">Pending<strong id="refPending">0</strong></div>
+      <div class="stat">Approved<strong id="refApproved">0</strong></div>
+      <div class="stat">Rejected<strong id="refRejected">0</strong></div>
+      <div class="stat">Approved Bonus<strong id="refBonus">৳0.00</strong></div>
+     </div>
+     <p class="small">Referral Bonus Admin যাচাই করে Approve করলে Wallet-এ যোগ হবে।</p>
+     <hr><h3>আপনার Referral Members</h3><div id="myReferrals"></div>
+    </div>
+   </div>
+   <div class="page" id="mProfile">
+    <div class="card">
+     <h2>My Profile</h2>
+     <label>নাম</label><input id="profileName">
+     <label>Email / Phone</label><input id="profileEmail" disabled>
+     <label>Member UID</label><input id="profileUid" disabled>
+     <button class="gold" id="saveProfile">Save Profile</button>
+    </div>
+   </div>
+   <div class="page" id="mSupport">
+    <div class="card"><h2>Support Center</h2><label>আপনার সমস্যা লিখুন</label><textarea id="supportMessage" placeholder="আপনার সমস্যা বা প্রশ্ন লিখুন"></textarea><button class="gold" id="sendSupport">Send Message</button></div>
+    <div class="card"><h3>My Support Tickets</h3><div id="myTickets"></div></div>
+   </div>
+  </main>
+ </div>
+</section>
+
+<section id="adminScreen" class="wrap hidden">
+ <div class="topline card">
+  <div><h2>Admin Control Panel</h2><p>Administrator Access</p></div>
+  <button class="red" id="adminLogout">Logout</button>
+ </div>
+ <div class="layout">
+  <nav class="sidebar" id="adminNav">
+   <button class="active" data-page="aOverview">⌂ Overview</button>
+   <button data-page="aCreate">＋ Create Task</button>
+   <button data-page="aTasks">▣ Manage Tasks</button>
+   <button data-page="aSubmissions">✓ Submissions</button>
+   <button data-page="aMembers">♙ Members</button>
+   <button data-page="aFinance">◈ Finance</button>
+   <button data-page="aLedger">▤ Transactions</button>
+   <button data-page="aReferrals">♧ Referrals</button>
+   <button data-page="aSupport">✉ Support Inbox</button>
+   <button data-page="aSettings">⚙ Settings</button>
+  </nav>
+  <main class="content">
+   <div class="page active" id="aOverview">
+    <div class="card"><h2>Admin Overview</h2><p>সদস্য, Task, Submission ও Withdrawal পরিচালনা করুন।</p></div>
+    <div class="grid">
+     <div class="stat">Total Members<strong id="totalMembers">0</strong></div>
+     <div class="stat">Total Tasks<strong id="totalTasks">0</strong></div>
+     <div class="stat">Pending Reviews<strong id="pendingReviews">0</strong></div>
+     <div class="stat">Pending Withdrawals<strong id="pendingWithdrawals">0</strong></div>
+    </div>
+   </div>
+   <div class="page" id="aCreate">
+    <div class="card">
+     <h2>Create New Task</h2>
+     <label>Task Title</label><input id="taskTitle">
+     <label>Description</label><textarea id="taskDescription"></textarea>
+     <label>Instructions</label><textarea id="taskInstructions"></textarea>
+     <label>Task Website Link</label>
+     <input id="taskLink" type="url" placeholder="https://example.com">
+     <p class="small">এই লিংকে সদস্যরা সরাসরি যেতে পারবে। লিংক না দিলেও Task তৈরি করা যাবে।</p>
+     <label>Reward (৳)</label><input id="taskReward" type="number" min="0" step="0.01">
+     <div class="notice">Reward প্রস্তাবিত পরিমাণ। অর্থায়ন নিশ্চিত না হলে এটি বাস্তব আয় নয়।</div>
+     <button class="gold" id="createTaskBtn">Publish Task</button>
+     <div id="taskMessage" class="msg hidden"></div>
+    </div>
+   </div>
+   <div class="page" id="aTasks"><div class="card"><h2>Manage Tasks</h2><div id="adminTasks"></div></div></div>
+   <div class="page" id="aSubmissions"><div class="card"><h2>Review Submissions</h2><div id="adminSubmissions"></div></div></div>
+   <div class="page" id="aMembers"><div class="card"><h2>Members Management</h2><input id="memberSearch" placeholder="নাম বা ইমেইল/ফোন দিয়ে খুঁজুন"><div id="adminMembers"></div></div></div>
+   <div class="page" id="aFinance"><div class="card"><h2>Withdrawal Management</h2><p>বাস্তবে টাকা পাঠানোর পরই Paid করুন।</p><div id="adminWithdrawals"></div></div></div>
+   <div class="page" id="aLedger"><div class="card"><h2>All Transactions</h2><div id="adminLedger"></div></div></div>
+   <div class="page" id="aReferrals"><div class="card"><h2>Referral Management</h2><div id="adminReferrals"></div></div></div>
+   <div class="page" id="aSupport"><div class="card"><h2>Support Inbox</h2><div id="adminSupport"></div></div></div>
+   <div class="page" id="aSettings">
+    <div class="card">
+     <h2>Platform Settings</h2>
+     <p>Admin UID:</p><p id="adminUidText" class="small"></p>
+     <hr>
+     <h3>Referral Bonus Settings</h3>
+     <label>প্রতি Approved Referral Bonus (৳)</label>
+     <input id="refBonusAmount" type="number" min="0" step="0.01" placeholder="যেমন ১০">
+     <label><input id="refEnabled" type="checkbox" style="width:auto;margin:0 7px 0 0"> Referral Bonus চালু রাখুন</label>
+     <p class="small">Bonus ০ হলে Referral Bonus দেওয়া হবে না। শুধু বাস্তবে দেওয়ার সামর্থ্য আছে এমন পরিমাণ নির্ধারণ করুন।</p>
+     <button class="gold" id="saveReferralSettings">Save Referral Settings</button>
+     <div id="settingsMessage" class="msg hidden"></div>
+    </div>
+   </div>
+  </main>
+ </div>
+</section>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script>
+"use strict";
+
+const firebaseConfig={
+ apiKey:"AIzaSyCcSIdR99qw1vKk-QukJoT1JHJi4y3EIP0",
+ authDomain:"earnova-platform-be3ac.firebaseapp.com",
+ projectId:"earnova-platform-be3ac",
+ storageBucket:"earnova-platform-be3ac.firebasestorage.app",
+ messagingSenderId:"1015646195630",
+ appId:"1:101564619563:web:148cacb0e40cd763a0823f"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth();
+const db=firebase.firestore();
+
+const ADMIN_UID="tuzcowIk9jZ9czNaqkWAKJb40Zf2";
+const CLOUDINARY_CLOUD_NAME="klnfacnk";
+const CLOUDINARY_UPLOAD_PRESET="earnova_proofs";
+const MAX_PROOF_SIZE=5*1024*1024;
+
+const $=id=>document.getElementById(id);
+
+let currentUser=null,profile={},tasks=[],members=[],submissions=[],withdrawals=[];
+let adminMode=false,registrationInProgress=false,routingInProgress=false;
+let walletUnsub=null;
+let authTab="email",regTab="email";
+let confirmationResult=null,regConfirmationResult=null;
+let recaptchaVerifier=null,regRecaptchaVerifier=null;
+let pendingPhoneName="",pendingPhoneReferral="";
+
+function message(id,text){
+ $(id).textContent=text;
+ $(id).classList.remove("hidden");
+}
+function money(n){return "৳"+Number(n||0).toFixed(2)}
+function esc(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
+}
+function safeTaskLink(value){
+ try{
+  const url=new URL(String(value||"").trim());
+  return url.protocol==="https:"?url.href:"";
+ }catch(e){return ""}
+}
+function date(v){
+ return v&&v.toDate?v.toDate().toLocaleString("bn-BD"):"";
+}
+function statusText(s){
+ return ({
+ pending:"যাচাইয়ের অপেক্ষায়",
+ approved:"অনুমোদিত",
+ rejected:"বাতিল",
+ paid:"পরিশোধিত",
+ open:"চালু",
+ closed:"বন্ধ",
+ deleted:"ডিলেট / লুকানো",
+ resolved:"সমাধান হয়েছে"
+ })[s]||s||"";
+}
+function errorText(e){
+ const code=(e.code||"").replace(/^firestore\//,"");
+ const messages={
+ "auth/email-already-in-use":"এই ইমেইলে অ্যাকাউন্ট আছে। Login করুন।",
+ "auth/invalid-email":"সঠিক ইমেইল দিন।",
+ "auth/weak-password":"পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের দিন।",
+ "auth/invalid-credential":"ইমেইল অথবা পাসওয়ার্ড সঠিক নয়।",
+ "auth/user-not-found":"এই অ্যাকাউন্ট পাওয়া যায়নি।",
+ "auth/wrong-password":"পাসওয়ার্ড সঠিক নয়।",
+ "auth/invalid-phone-number":"সঠিক মোবাইল নম্বর দিন।",
+ "auth/too-many-requests":"অনেকবার চেষ্টা হয়েছে। কিছুক্ষণ পরে চেষ্টা করুন।",
+ "auth/invalid-verification-code":"OTP সঠিক নয়।",
+ "auth/code-expired":"OTP-এর মেয়াদ শেষ। আবার OTP পাঠান।",
+ "auth/captcha-check-failed":"reCAPTCHA যাচাই হয়নি। আবার চেষ্টা করুন।",
+ "permission-denied":"Firestore Rules অনুমতি দেয়নি। Rules পরীক্ষা করুন।",
+ "unavailable":"ইন্টারনেট সংযোগ পরীক্ষা করুন।"
+ };
+ return messages[code]||e.message||"সমস্যা হয়েছে।";
+}
+function notify(t){alert(t)}
+function serverTime(){return firebase.firestore.FieldValue.serverTimestamp()}
+
+async function setSessionPersistence(){
+ await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+}
+function stopWalletListener(){
+ if(walletUnsub){walletUnsub();walletUnsub=null}
+}
+function watchWallet(uid){
+ stopWalletListener();
+ walletUnsub=db.collection("wallets").doc(uid).onSnapshot(s=>{
+  if(!s.exists)return;
+  const b=Number(s.data().balance||0);
+  $("memberBalance").textContent=money(b);
+  $("walletBalance").textContent=money(b);
+  $("withdrawBalance").textContent=money(b);
+ },e=>console.warn("Wallet listener:",e));
+}
+function showAuth(){
+ stopWalletListener();
+ $("authScreen").classList.remove("hidden");
+ $("memberScreen").classList.add("hidden");
+ $("adminScreen").classList.add("hidden");
+}
+function setMode(mode){
+ adminMode=mode==="admin";
+ $("loginForm").classList.remove("hidden");
+ $("registerForm").classList.add("hidden");
+ $("authMessage").classList.add("hidden");
+ $("loginTitle").textContent=adminMode?"Admin Login":"Member Login";
+ $("memberMode").className=adminMode?"dark":"gold";
+ $("adminMode").className=adminMode?"gold":"dark";
+ $("registerLink").classList.toggle("hidden",adminMode);
+ $("memberAuthTabs").classList.toggle("hidden",adminMode);
+ $("forgot").parentElement.classList.toggle("hidden",false);
+ $("loginHint").textContent=adminMode?"শুধু অনুমোদিত Admin প্রবেশ করুন।":"সদস্য হিসেবে প্রবেশ করুন।";
+ $("emailLoginBox").classList.remove("hidden");
+ $("phoneLoginBox").classList.add("hidden");
+ authTab="email";
+}
+$("memberMode").onclick=()=>setMode("member");
+$("adminMode").onclick=()=>setMode("admin");
+$("goRegister").onclick=()=>{
+ if(adminMode)return;
+ $("loginForm").classList.add("hidden");
+ $("registerForm").classList.remove("hidden");
+ $("authMessage").classList.add("hidden");
+};
+$("goLogin").onclick=()=>setMode("member");
+
+function setAuthTab(tab){
+ authTab=tab;
+ $("emailLoginBox").classList.toggle("hidden",tab!=="email");
+ $("phoneLoginBox").classList.toggle("hidden",tab!=="phone");
+ $("emailTab").className=tab==="email"?"gold":"dark";
+ $("phoneTab").className=tab==="phone"?"gold":"dark";
+}
+$("emailTab").onclick=()=>setAuthTab("email");
+$("phoneTab").onclick=()=>setAuthTab("phone");
+
+function setRegTab(tab){
+ regTab=tab;
+ $("emailRegisterBox").classList.toggle("hidden",tab!=="email");
+ $("phoneRegisterBox").classList.toggle("hidden",tab!=="phone");
+ $("regEmailTab").className=tab==="email"?"gold":"dark";
+ $("regPhoneTab").className=tab==="phone"?"gold":"dark";
+}
+$("regEmailTab").onclick=()=>setRegTab("email");
+$("regPhoneTab").onclick=()=>setRegTab("phone");
+
+function normalizePhone(value){
+ let p=String(value||"").replace(/[\s\-]/g,"");
+ if(/^01[3-9]\d{8}$/.test(p))return "+88"+p;
+ if(/^8801[3-9]\d{8}$/.test(p))return "+"+p;
+ if(/^\+8801[3-9]\d{8}$/.test(p))return p;
+ return "";
+}
+function referralFromUrl(){
+ try{
+  const code=new URLSearchParams(location.search).get("ref");
+  if(code){
+   $("regReferral").value=code.toUpperCase();
+   $("phoneRegReferral").value=code.toUpperCase();
+  }
+ }catch(e){}
+}
+referralFromUrl();
+
+async function createRecaptcha(containerId,isRegistration){
+ try{
+  if(isRegistration&&regRecaptchaVerifier){
+   try{regRecaptchaVerifier.clear()}catch(e){}
+   regRecaptchaVerifier=null;
+  }
+  if(!isRegistration&&recaptchaVerifier){
+   try{recaptchaVerifier.clear()}catch(e){}
+   recaptchaVerifier=null;
+  }
+  const verifier=new firebase.auth.RecaptchaVerifier(containerId,{size:"normal"});
+  await verifier.render();
+  if(isRegistration)regRecaptchaVerifier=verifier;
+  else recaptchaVerifier=verifier;
+  return verifier;
+ }catch(e){
+  throw Error("reCAPTCHA চালু হয়নি। পেজ Reload করে আবার চেষ্টা করুন। "+errorText(e));
+ }
+}
+
+async function resolveReferral(code,newUid){
+ const clean=String(code||"").trim().toUpperCase();
+ if(!clean)return null;
+ if(clean.length>40)throw Error("Referral Code সঠিক নয়।");
+ const ref=await db.collection("referralCodes").doc(clean).get();
+ if(!ref.exists)throw Error("Referral Code পাওয়া যায়নি।");
+ const referrerUid=ref.data().uid;
+ if(!referrerUid||referrerUid===newUid)throw Error("নিজের Referral Code ব্যবহার করা যাবে না।");
+ return {code:clean,referrerUid};
+}
+
+async function createMemberRecords(user,name,referralCode){
+ const uid=user.uid;
+ const userRef=db.collection("users").doc(uid);
+ const walletRef=db.collection("wallets").doc(uid);
+ const userSnap=await userRef.get();
+ if(userSnap.exists){
+  profile=userSnap.data()||{};
+  return;
+ }
+ const referral=await resolveReferral(referralCode,uid);
+ const code=uid.slice(0,10).toUpperCase();
+ const batch=db.batch();
+ const userData={
+  uid,name:name||user.displayName||"Member",
+  email:user.email||"",phoneNumber:user.phoneNumber||"",
+  referralCode:code,referredBy:referral?referral.referrerUid:null,
+  createdAt:serverTime()
+ };
+ batch.set(userRef,userData);
+ batch.set(walletRef,{userId:uid,balance:0,updatedAt:serverTime()});
+ batch.set(db.collection("referralCodes").doc(code),{uid,code});
+ if(referral){
+  batch.set(db.collection("referrals").doc(uid),{
+   referrerUid:referral.referrerUid,referredUid:uid,
+   referralCode:referral.code,referrerName:"",
+   referredName:name||user.displayName||"Member",
+   referredEmail:user.email||"",referredPhone:user.phoneNumber||"",
+   status:"pending",bonusAmount:0,createdAt:serverTime()
+  });
+ }
+ await batch.commit();
+ const fresh=await userRef.get();
+ profile=fresh.data()||userData;
+}
+
+$("registerBtn").onclick=async()=>{
+ const name=$("regName").value.trim();
+ const email=$("regEmail").value.trim();
+ const pass=$("regPass").value;
+ const confirm=$("regConfirm").value;
+ const referral=$("regReferral").value.trim();
+ if(!name||!email||!pass||!confirm)return message("authMessage","সব তথ্য পূরণ করুন।");
+ if(pass.length<6)return message("authMessage","পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের দিন।");
+ if(pass!==confirm)return message("authMessage","পাসওয়ার্ড মিলছে না।");
+ $("registerBtn").disabled=true;
+ registrationInProgress=true;
+ let createdUser=null;
+ try{
+  await setSessionPersistence();
+  const credential=await auth.createUserWithEmailAndPassword(email,pass);
+  createdUser=credential.user;
+  await createdUser.updateProfile({displayName:name});
+  await createMemberRecords(createdUser,name,referral);
+  currentUser=createdUser;
+  $("regName").value="";
+  $("regEmail").value="";
+  $("regPass").value="";
+  $("regConfirm").value="";
+  $("regReferral").value="";
+  await openMemberDashboard(createdUser);
+  notify("Registration সফল হয়েছে।");
+ }catch(e){
+  if(createdUser){try{await auth.signOut()}catch(ignore){}}
+  message("authMessage",errorText(e));
+ }finally{
+  registrationInProgress=false;
+  $("registerBtn").disabled=false;
+ }
+};
+
+$("loginBtn").onclick=async()=>{
+ const email=$("loginEmail").value.trim();
+ const pass=$("loginPass").value;
+ if(!email||!pass)return message("authMessage","ইমেইল ও পাসওয়ার্ড লিখুন।");
+ $("loginBtn").disabled=true;
+ try{
+  await setSessionPersistence();
+  const result=await auth.signInWithEmailAndPassword(email,pass);
+  const user=result.user;
+  if(adminMode&&user.uid!==ADMIN_UID){
+   await auth.signOut();
+   message("authMessage","এই অ্যাকাউন্ট Admin নয়।");
+  }else if(!adminMode&&user.uid===ADMIN_UID){
+   await auth.signOut();
+   message("authMessage","Admin Login নির্বাচন করুন।");
+  }
+ }catch(e){message("authMessage",errorText(e))}
+ finally{$("loginBtn").disabled=false}
+};
+
+$("forgot").onclick=async()=>{
+ const email=$("loginEmail").value.trim();
+ if(!email)return message("authMessage","প্রথমে ইমেইল লিখুন।");
+ try{
+  await auth.sendPasswordResetEmail(email);
+  message("authMessage","Password reset link ইমেইলে পাঠানো হয়েছে।");
+ }catch(e){message("authMessage",errorText(e))}
+};
+
+$("sendOtpBtn").onclick=async()=>{
+ const phone=normalizePhone($("phoneNumber").value);
+ if(!phone)return message("authMessage","সঠিক বাংলাদেশি মোবাইল নম্বর দিন।");
+ $("sendOtpBtn").disabled=true;
+ try{
+  await setSessionPersistence();
+  const verifier=await createRecaptcha("recaptcha-container",false);
+  confirmationResult=await auth.signInWithPhoneNumber(phone,verifier);
+  $("otpArea").classList.remove("hidden");
+  message("authMessage","OTP পাঠানো হয়েছে। SMS দেখে কোড লিখুন।");
+ }catch(e){
+  message("authMessage",errorText(e));
+  if(recaptchaVerifier){try{recaptchaVerifier.clear()}catch(ignore){} recaptchaVerifier=null}
+ }finally{$("sendOtpBtn").disabled=false}
+};
+
+$("verifyOtpBtn").onclick=async()=>{
+ const code=$("otpCode").value.trim();
+ if(!confirmationResult)return message("authMessage","আগে OTP পাঠান।");
+ if(!code)return message("authMessage","OTP লিখুন।");
+ $("verifyOtpBtn").disabled=true;
+ routingInProgress=true;
+ try{
+  await setSessionPersistence();
+  const result=await confirmationResult.confirm(code);
+  const user=result.user;
+  if(user.uid===ADMIN_UID){
+   await auth.signOut();
+   throw Error("Admin Phone Login অনুমোদিত নয়। Admin Email Login ব্যবহার করুন।");
+  }
+  const userRef=db.collection("users").doc(user.uid);
+  const existing=await userRef.get();
+  if(!existing.exists){
+   await auth.signOut();
+   throw Error("এই নম্বরে Member Account নেই। আগে Registration করুন।");
+  }
+  profile=existing.data()||{};
+  routingInProgress=false;
+  await openMemberDashboard(user);
+  $("otpCode").value="";
+  confirmationResult=null;
+ }catch(e){
+  routingInProgress=false;
+  message("authMessage",errorText(e));
+ }finally{$("verifyOtpBtn").disabled=false}
+};
+
+$("sendRegOtpBtn").onclick=async()=>{
+ const name=$("phoneRegName").value.trim();
+ const phone=normalizePhone($("phoneRegNumber").value);
+ const referral=$("phoneRegReferral").value.trim();
+ if(!name)return message("authMessage","আপনার নাম লিখুন।");
+ if(!phone)return message("authMessage","সঠিক বাংলাদেশি মোবাইল নম্বর দিন।");
+ pendingPhoneName=name;
+ pendingPhoneReferral=referral;
+ $("sendRegOtpBtn").disabled=true;
+ try{
+  await setSessionPersistence();
+  const verifier=await createRecaptcha("reg-recaptcha-container",true);
+  regConfirmationResult=await auth.signInWithPhoneNumber(phone,verifier);
+  $("regOtpArea").classList.remove("hidden");
+  message("authMessage","Registration OTP পাঠানো হয়েছে।");
+ }catch(e){
+  message("authMessage",errorText(e));
+  if(regRecaptchaVerifier){try{regRecaptchaVerifier.clear()}catch(ignore){} regRecaptchaVerifier=null}
+ }finally{$("sendRegOtpBtn").disabled=false}
+};
+
+$("verifyRegOtpBtn").onclick=async()=>{
+ const code=$("regOtpCode").value.trim();
+ if(!regConfirmationResult)return message("authMessage","আগে OTP পাঠান।");
+ if(!code)return message("authMessage","OTP লিখুন।");
+ $("verifyRegOtpBtn").disabled=true;
+ registrationInProgress=true;
+ routingInProgress=true;
+ try{
+  await setSessionPersistence();
+  const result=await regConfirmationResult.confirm(code);
+  const user=result.user;
+  if(user.uid===ADMIN_UID){
+   await auth.signOut();
+   throw Error("Admin Phone Registration অনুমোদিত নয়।");
+  }
+  const userRef=db.collection("users").doc(user.uid);
+  const existing=await userRef.get();
+  if(existing.exists){
+   profile=existing.data()||{};
+   registrationInProgress=false;
+   routingInProgress=false;
+   await openMemberDashboard(user);
+   notify("এই নম্বরে আগে থেকেই Account আছে। Login হয়েছে।");
+  }else{
+   await user.updateProfile({displayName:pendingPhoneName});
+   await createMemberRecords(user,pendingPhoneName,pendingPhoneReferral);
+   $("phoneRegName").value="";
+   $("phoneRegNumber").value="";
+   $("phoneRegReferral").value="";
+   $("regOtpCode").value="";
+   registrationInProgress=false;
+   routingInProgress=false;
+   await openMemberDashboard(user);
+   notify("Phone Registration সফল হয়েছে।");
+  }
+  regConfirmationResult=null;
+ }catch(e){
+  registrationInProgress=false;
+  routingInProgress=false;
+  message("authMessage",errorText(e));
+ }finally{$("verifyRegOtpBtn").disabled=false}
+};
+
+$("memberLogout").onclick=()=>auth.signOut();
+$("adminLogout").onclick=()=>auth.signOut();
+
+auth.onAuthStateChanged(async user=>{
+ if(registrationInProgress||routingInProgress)return;
+ currentUser=user;
+ if(!user){
+  showAuth();
+  $("headerInfo").textContent="Work • Earn • Grow • Succeed";
+  return;
+ }
+ try{
+  if(user.uid===ADMIN_UID){
+   stopWalletListener();
+   $("memberScreen").classList.add("hidden");
+   $("authScreen").classList.add("hidden");
+   $("adminScreen").classList.remove("hidden");
+   $("headerInfo").textContent=user.email||"Admin";
+   $("adminUidText").textContent=user.uid;
+   await loadAdmin();
+   adminPage("aOverview");
+  }else{
+   await openMemberDashboard(user);
+  }
+ }catch(e){
+  console.error(e);
+  notify(errorText(e));
+ }
+});
+
+async function openMemberDashboard(user){
+ if(routingInProgress)return;
+ routingInProgress=true;
+ try{
+  currentUser=user;
+  if(user.uid===ADMIN_UID)throw Error("Admin Member Dashboard ব্যবহার করতে পারবেন না।");
+  $("authScreen").classList.add("hidden");
+  $("adminScreen").classList.add("hidden");
+  $("memberScreen").classList.remove("hidden");
+  $("headerInfo").textContent=user.email||user.phoneNumber||"Member";
+  await ensureMemberProfile(user);
+  await loadMember();
+  watchWallet(user.uid);
+  memberPage("mOverview");
+ }finally{
+  routingInProgress=false;
+ }
+}
+
+async function ensureMemberProfile(user){
+ const ref=db.collection("users").doc(user.uid);
+ let snap=await ref.get();
+ if(!snap.exists){
+  await createMemberRecords(user,user.displayName||"Member","");
+  snap=await ref.get();
+ }
+ const walletRef=db.collection("wallets").doc(user.uid);
+ const walletSnap=await walletRef.get();
+ if(!walletSnap.exists){
+  await walletRef.set({userId:user.uid,balance:0,updatedAt:serverTime()});
+ }
+ profile=snap.data()||{};
+ $("memberName").textContent=profile.name||user.email||user.phoneNumber||"Member";
+ $("profileName").value=profile.name||"";
+ $("profileEmail").value=user.email||user.phoneNumber||"";
+ $("profileUid").value=user.uid;
+}
+
+function memberPage(id){
+ document.querySelectorAll("#memberNav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+ document.querySelectorAll("#memberScreen .page").forEach(p=>p.classList.toggle("active",p.id===id));
+}
+function adminPage(id){
+ document.querySelectorAll("#adminNav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+ document.querySelectorAll("#adminScreen .page").forEach(p=>p.classList.toggle("active",p.id===id));
+}
+window.memberPage=memberPage;
+$("memberNav").onclick=e=>{
+ const b=e.target.closest("button[data-page]");
+ if(b)memberPage(b.dataset.page);
+};
+$("adminNav").onclick=e=>{
+ const b=e.target.closest("button[data-page]");
+ if(b)adminPage(b.dataset.page);
+};
+
+async function getBalance(uid=currentUser.uid){
+ const s=await db.collection("wallets").doc(uid).get();
+ return s.exists?Number(s.data().balance||0):0;
+}
+
+async function loadMember(){
+ const uid=currentUser.uid;
+ const [taskSnap,subSnap,txSnap,withdrawSnap,ticketSnap]=await Promise.all([
+  db.collection("tasks").where("status","==","open").get(),
+  db.collection("submissions").where("userId","==",uid).get(),
+  db.collection("transactions").where("userId","==",uid).get(),
+  db.collection("withdrawals").where("userId","==",uid).get(),
+  db.collection("supportTickets").where("userId","==",uid).get()
+ ]);
+ tasks=taskSnap.docs.map(d=>({id:d.id,...d.data()}));
+ const mine=subSnap.docs.map(d=>({id:d.id,...d.data()}));
+ const txs=txSnap.docs.map(d=>({id:d.id,...d.data()}));
+ const ws=withdrawSnap.docs.map(d=>({id:d.id,...d.data()}));
+ const tickets=ticketSnap.docs.map(d=>({id:d.id,...d.data()}));
+ const balance=await getBalance();
+ $("memberTaskCount").textContent=tasks.length;
+ $("memberSubCount").textContent=mine.length;
+ $("memberApproved").textContent=mine.filter(x=>x.status==="approved").length;
+ $("memberBalance").textContent=money(balance);
+ $("walletBalance").textContent=money(balance);
+ $("withdrawBalance").textContent=money(balance);
+ const withdrawn=txs.filter(x=>x.type==="withdrawal"&&Number(x.amount)<0&&x.status==="completed")
+  .reduce((a,x)=>a+Math.abs(Number(x.amount)),0);
+ $("walletWithdrawn").textContent=money(withdrawn);
+ renderMemberTasks();
+
+ $("mySubmissions").innerHTML=mine.length?mine.map(s=>`
+  <div class="task">
+   <h3>${esc(s.taskTitle)}</h3>
+   <span class="badge">${esc(statusText(s.status))}</span>
+   <p>প্রমাণ: ${esc(s.proof)}</p>
+   ${s.proofImage?`
+    <p>📸 জমা দেওয়া স্ক্রিনশট:</p>
+    <a href="${esc(s.proofImage)}" target="_blank" rel="noopener noreferrer">
+     <img class="proof-image" src="${esc(s.proofImage)}" alt="Proof Image" loading="lazy">
+    </a>`:""}
+   <p>Admin Note: ${esc(s.adminNote||"নেই")}</p>
+   <p class="small">${date(s.submittedAt)}</p>
+  </div>`).join(""):"<p>এখনো কোনো কাজ জমা দেননি।</p>";
+
+ $("memberTransactions").innerHTML=renderTransactions(txs);
+ $("myWithdrawals").innerHTML=ws.length?ws.map(w=>`
+  <div class="task">
+   <h3>${money(w.amount)} — ${esc(w.method)}</h3>
+   <p>নম্বর: ${esc(w.phone)}</p>
+   <span class="badge">${esc(statusText(w.status))}</span>
+   <p>TrxID: ${esc(w.transactionId||"অপেক্ষমাণ")}</p>
+   <p class="small">${date(w.requestedAt)}</p>
+  </div>`).join(""):"<p>কোনো আবেদন নেই।</p>";
+
+ $("myTickets").innerHTML=tickets.length?tickets.map(t=>`
+  <div class="task">
+   <p>${esc(t.message)}</p>
+   <span class="badge">${esc(statusText(t.status))}</span>
+   <p>Admin Reply: ${esc(t.reply||"অপেক্ষমাণ")}</p>
+  </div>`).join(""):"<p>কোনো Support Ticket নেই।</p>";
+
+ $("myReferralCode").textContent=profile.referralCode||"—";
+ const link=new URL(location.href);
+ link.searchParams.set("ref",profile.referralCode||"");
+ $("myReferralLink").value=link.toString();
+ await loadMyReferrals();
+}
+
+function renderMemberTasks(){
+ $("memberTasks").innerHTML=tasks.length?tasks.map(t=>{
+  const taskLink=safeTaskLink(t.link);
+  return `
+  <div class="task">
+   <h3>${esc(t.title)}</h3>
+   <p>${esc(t.description)}</p>
+   <p>${esc(t.instructions)}</p>
+   <p>প্রস্তাবিত Reward: ${money(t.reward)}</p>
+   ${taskLink?`
+    <a class="task-link-button" href="${esc(taskLink)}" target="_blank" rel="noopener noreferrer">
+     🔗 কাজ শুরু করুন
+    </a>`:""}
+   <label>কাজের বিবরণ / প্রমাণ</label>
+   <textarea id="proof_${esc(t.id)}" placeholder="কাজটি কীভাবে করেছেন লিখুন"></textarea>
+   <label>স্ক্রিনশট প্রুফ (সর্বোচ্চ ৫ MB)</label>
+   <input id="image_${esc(t.id)}" type="file" accept="image/jpeg,image/png,image/webp">
+   <p class="small" id="uploadStatus_${esc(t.id)}">JPG, PNG অথবা WebP ছবি নির্বাচন করুন।</p>
+   <button class="gold" onclick="submitTask('${esc(t.id)}')">📸 স্ক্রিনশটসহ কাজ জমা দিন</button>
+  </div>`;
+ }).join(""):"<p>এখন কোনো খোলা Task নেই।</p>";
+}
+
+async function uploadProofImage(file,taskId){
+ if(!file)return "";
+ const allowedTypes=["image/jpeg","image/png","image/webp"];
+ if(!allowedTypes.includes(file.type))throw Error("শুধু JPG, PNG অথবা WebP ছবি দেওয়া যাবে।");
+ if(file.size>MAX_PROOF_SIZE)throw Error("ছবির সাইজ ৫ MB-এর বেশি হতে পারবে না।");
+ const status=$("uploadStatus_"+taskId);
+ if(status)status.textContent="ছবি আপলোড হচ্ছে...";
+ const formData=new FormData();
+ formData.append("file",file);
+ formData.append("upload_preset",CLOUDINARY_UPLOAD_PRESET);
+ const response=await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,{method:"POST",body:formData});
+ const result=await response.json();
+ if(!response.ok)throw Error(result.error?.message||"ছবি আপলোড হয়নি।");
+ if(!result.secure_url)throw Error("ছবির URL পাওয়া যায়নি।");
+ if(status)status.textContent="ছবি আপলোড সফল হয়েছে।";
+ return result.secure_url;
+}
+
+window.submitTask=async id=>{
+ const task=tasks.find(t=>t.id===id);
+ const proof=$("proof_"+id)?.value.trim()||"";
+ const file=$("image_"+id)?.files?.[0]||null;
+ if(!task)return notify("Task পাওয়া যায়নি।");
+ if(!proof&&!file)return notify("কাজের বিবরণ অথবা স্ক্রিনশট দিন।");
+ if(!currentUser)return notify("আগে Login করুন।");
+ const sid=currentUser.uid+"_"+id;
+ const button=$("image_"+id)?.parentElement?.querySelector("button");
+ try{
+  if(button)button.disabled=true;
+  let imageUrl="";
+  if(file)imageUrl=await uploadProofImage(file,id);
+  const ref=db.collection("submissions").doc(sid);
+  await db.runTransaction(async tx=>{
+   const old=await tx.get(ref);
+   if(old.exists)throw Error("এই কাজের জন্য আগে জমা দিয়েছেন।");
+   const taskRef=db.collection("tasks").doc(id);
+   const taskSnap=await tx.get(taskRef);
+   if(!taskSnap.exists)throw Error("Task পাওয়া যায়নি।");
+   if(taskSnap.data().status!=="open")throw Error("Task বন্ধ হয়ে গেছে।");
+   tx.set(ref,{
+    taskId:id,taskTitle:task.title,userId:currentUser.uid,
+    userName:profile.name||currentUser.email||currentUser.phoneNumber,
+    proof:proof||"স্ক্রিনশট প্রুফ সংযুক্ত",
+    proofImage:imageUrl,status:"pending",submittedAt:serverTime()
+   });
+  });
+  notify("কাজের প্রমাণ সফলভাবে জমা হয়েছে।");
+  await loadMember();
+ }catch(e){notify(errorText(e))}
+ finally{if(button)button.disabled=false}
+};
+
+$("saveProfile").onclick=async()=>{
+ const name=$("profileName").value.trim();
+ if(!name)return notify("নাম লিখুন।");
+ try{
+  await db.collection("users").doc(currentUser.uid).update({name,updatedAt:serverTime()});
+  await currentUser.updateProfile({displayName:name});
+  profile.name=name;
+  $("memberName").textContent=name;
+  notify("Profile Update হয়েছে।");
+ }catch(e){notify(errorText(e))}
+};
+
+$("withdrawBtn").onclick=async()=>{
+ const method=$("withdrawMethod").value;
+ const phone=$("withdrawPhone").value.trim();
+ const amount=Number($("withdrawAmount").value);
+ if(!/^01[3-9][0-9]{8}$/.test(phone))return notify("সঠিক বাংলাদেশি মোবাইল নম্বর দিন।");
+ if(!Number.isInteger(amount)||amount<50)return notify("কমপক্ষে ৳৫০ এবং পূর্ণ সংখ্যা দিন।");
+ $("withdrawBtn").disabled=true;
+ try{
+  const balance=await getBalance();
+  if(amount>balance)throw Error("Wallet Balance যথেষ্ট নয়।");
+  await db.collection("withdrawals").add({
+   userId:currentUser.uid,userName:profile.name||currentUser.email||currentUser.phoneNumber,
+   method,phone,amount,status:"pending",requestedAt:serverTime()
+  });
+  $("withdrawAmount").value="";
+  notify("Withdrawal Request জমা হয়েছে।");
+  await loadMember();
+ }catch(e){notify(errorText(e))}
+ finally{$("withdrawBtn").disabled=false}
+};
+
+async function loadMyReferrals(){
+ const snap=await db.collection("referrals").where("referrerUid","==",currentUser.uid).get();
+ const list=snap.docs.map(d=>({id:d.id,...d.data()}));
+ const pending=list.filter(x=>x.status==="pending");
+ const approved=list.filter(x=>x.status==="approved");
+ const rejected=list.filter(x=>x.status==="rejected");
+ const total=approved.reduce((sum,x)=>sum+Number(x.bonusAmount||0),0);
+ $("refPending").textContent=pending.length;
+ $("refApproved").textContent=approved.length;
+ $("refRejected").textContent=rejected.length;
+ $("refBonus").textContent=money(total);
+ $("myReferrals").innerHTML=list.length?list.map(x=>`
+  <div class="task">
+   <h3>${esc(x.referredName||"Member")}</h3>
+   <p>${esc(x.referredEmail||x.referredPhone||"")}</p>
+   <span class="badge">${esc(statusText(x.status))}</span>
+   <p>Bonus: ${money(x.bonusAmount||0)}</p>
+   <p class="small">${date(x.createdAt)}</p>
+  </div>`).join(""):"<p>এখনো কেউ আপনার কোড ব্যবহার করেনি।</p>";
+}
+$("copyReferral").onclick=async()=>{
+ const code=profile.referralCode||"";
+ try{await navigator.clipboard.writeText(code);notify("Referral Code Copy হয়েছে।")}
+ catch(e){notify("আপনার Referral Code: "+code)}
+};
+$("copyReferralLink").onclick=async()=>{
+ const link=$("myReferralLink").value;
+ try{await navigator.clipboard.writeText(link);notify("Referral Link Copy হয়েছে।")}
+ catch(e){notify("Referral Link: "+link)}
+};
+
+$("sendSupport").onclick=async()=>{
+ const text=$("supportMessage").value.trim();
+ if(!text)return notify("সমস্যা লিখুন।");
+ try{
+  await db.collection("supportTickets").add({
+   userId:currentUser.uid,userName:profile.name||currentUser.email||currentUser.phoneNumber,
+   message:text,status:"open",reply:"",createdAt:serverTime()
+  });
+  $("supportMessage").value="";
+  notify("Support Message পাঠানো হয়েছে।");
+  await loadMember();
+ }catch(e){notify(errorText(e))}
+};
+
+async function loadAdmin(){
+ const [us,ts,ss,ws]=await Promise.all([
+  db.collection("users").get(),db.collection("tasks").get(),
+  db.collection("submissions").get(),db.collection("withdrawals").get()
+ ]);
+ members=us.docs.map(d=>({id:d.id,...d.data()}));
+ tasks=ts.docs.map(d=>({id:d.id,...d.data()}));
+ submissions=ss.docs.map(d=>({id:d.id,...d.data()}));
+ withdrawals=ws.docs.map(d=>({id:d.id,...d.data()}));
+ $("totalMembers").textContent=members.length;
+ $("totalTasks").textContent=tasks.filter(t=>t.status!=="deleted").length;
+ $("pendingReviews").textContent=submissions.filter(x=>x.status==="pending").length;
+ $("pendingWithdrawals").textContent=withdrawals.filter(x=>x.status==="pending").length;
+ renderAdminTasks();
+ renderAdminSubmissions();
+ renderAdminMembers();
+ renderAdminWithdrawals();
+ await Promise.all([loadAdminLedger(),loadAdminReferrals(),loadAdminSupport(),loadReferralSettings()]);
+}
+
+$("createTaskBtn").onclick=async()=>{
+ const title=$("taskTitle").value.trim();
+ const description=$("taskDescription").value.trim();
+ const instructions=$("taskInstructions").value.trim();
+ const rawLink=$("taskLink").value.trim();
+ const reward=Number($("taskReward").value);
+
+ if(!title||!description||!instructions||$("taskReward").value===""){
+  return message("taskMessage","সব তথ্য পূরণ করুন।");
+ }
+ if(!Number.isFinite(reward)||reward<0)return message("taskMessage","সঠিক Reward লিখুন।");
+
+ let link="";
+ if(rawLink){
+  link=safeTaskLink(rawLink);
+  if(!link)return message("taskMessage","সঠিক HTTPS Website Link দিন।");
+ }
+
+ $("createTaskBtn").disabled=true;
+ try{
+  await db.collection("tasks").add({
+   title,description,instructions,reward,link,
+   status:"open",createdBy:currentUser.uid,createdAt:serverTime()
+  });
+  $("taskTitle").value="";
+  $("taskDescription").value="";
+  $("taskInstructions").value="";
+  $("taskLink").value="";
+  $("taskReward").value="";
+  message("taskMessage","Task তৈরি হয়েছে।");
+  await loadAdmin();
+ }catch(e){message("taskMessage",errorText(e))}
+ finally{$("createTaskBtn").disabled=false}
+};
+
+/* ADMIN TASK MANAGEMENT: DELETE + RESTORE */
+function renderAdminTasks(){
+ $("adminTasks").innerHTML=tasks.length?tasks.map(t=>{
+  const deleted=t.status==="deleted";
+  const link=safeTaskLink(t.link);
+
+  return `
+  <div class="task">
+   <h3>${esc(t.title)}</h3>
+   <p>${esc(t.description)}</p>
+
+   ${link?`
+    <p>Task Link:
+     <a href="${esc(link)}" target="_blank" rel="noopener noreferrer">
+      লিংক খুলুন
+     </a>
+    </p>`:""}
+
+   <p>Reward: ${money(t.reward)}</p>
+   <p>Status: <span class="badge">${esc(statusText(t.status))}</span></p>
+
+   ${deleted?`
+    <button class="green" onclick="restoreTask('${esc(t.id)}')">
+     ♻️ Restore করুন
+    </button>
+   `:`
+    <div class="row">
+     <button class="${t.status==="open"?"red":"green"}"
+      onclick="toggleTask('${esc(t.id)}','${t.status==="open"?"closed":"open"}')">
+      ${t.status==="open"?"বন্ধ করুন":"আবার চালু করুন"}
+     </button>
+
+     <button class="red" onclick="deleteTask('${esc(t.id)}')">
+      🗑️ ডিলেট করুন
+     </button>
+    </div>
+   `}
+  </div>`;
+ }).join(""):"<p>কোনো Task নেই।</p>";
+}
+
+window.toggleTask=async(id,newStatus)=>{
+ if(!currentUser||currentUser.uid!==ADMIN_UID)
+  return notify("Admin অনুমতি প্রয়োজন।");
+
+ if(!["open","closed"].includes(newStatus))
+  return notify("ভুল Status!");
+
+ try{
+  await db.collection("tasks").doc(id).update({
+   status:newStatus,
+   updatedAt:serverTime(),
+   updatedBy:currentUser.uid
+  });
+  notify("Task Status পরিবর্তন হয়েছে।");
+  await loadAdmin();
+ }catch(e){notify(errorText(e))}
+};
+
+window.deleteTask=async(id)=>{
+ if(!currentUser||currentUser.uid!==ADMIN_UID)
+  return notify("Admin অনুমতি প্রয়োজন।");
+
+ if(!confirm("আপনি কি এই Task ডিলেট করতে চান? এটি সদস্যদের কাছ থেকে লুকানো হবে।"))
+  return;
+
+ try{
+  await db.collection("tasks").doc(id).update({
+   status:"deleted",
+   deletedAt:serverTime(),
+   deletedBy:currentUser.uid
+  });
+  notify("Task সফলভাবে ডিলেট হয়েছে।");
+  await loadAdmin();
+ }catch(e){notify(errorText(e))}
+};
+
+window.restoreTask=async(id)=>{
+ if(!currentUser||currentUser.uid!==ADMIN_UID)
+  return notify("Admin অনুমতি প্রয়োজন।");
+
+ if(!confirm("এই Task আবার চালু করতে চান?"))
+  return;
+
+ try{
+  await db.collection("tasks").doc(id).update({
+   status:"open",
+   restoredAt:serverTime(),
+   restoredBy:currentUser.uid
+  });
+  notify("Task আবার চালু হয়েছে।");
+  await loadAdmin();
+ }catch(e){notify(errorText(e))}
+};
+
+/* ADMIN SUBMISSIONS */
+function renderAdminSubmissions(){
+ $("adminSubmissions").innerHTML=submissions.length?submissions.map(s=>`
+  <div class="task">
+   <h3>${esc(s.taskTitle)}</h3>
+   <p>সদস্য: ${esc(s.userName)}</p>
+   <p class="small">UID: ${esc(s.userId)}</p>
+   <p>প্রমাণ: ${esc(s.proof)}</p>
+   ${s.proofImage?`
+    <div style="margin:12px 0">
+     <p>📸 জমা দেওয়া স্ক্রিনশট:</p>
+     <a href="${esc(s.proofImage)}" target="_blank" rel="noopener noreferrer">
+      <img class="proof-image" src="${esc(s.proofImage)}" alt="Submission Proof" loading="lazy">
+     </a>
+    </div>`:"<p>কোনো স্ক্রিনশট দেওয়া হয়নি।</p>"}
+   <span class="badge">${esc(statusText(s.status))}</span>
+   ${s.status==="pending"?`
+    <textarea id="note_${esc(s.id)}" placeholder="Admin Note (ঐচ্ছিক)"></textarea>
+    <div class="row">
+     <button class="green" onclick="reviewSubmission('${esc(s.id)}','approved')">Approve + Wallet Credit</button>
+     <button class="red" onclick="reviewSubmission('${esc(s.id)}','rejected')">Reject</button>
+    </div>`:`<p>Admin Note: ${esc(s.adminNote||"নেই")}</p>`}
+  </div>`).join(""):"<p>কোনো Submission নেই।</p>";
+}
+
+window.reviewSubmission=async(id,decision)=>{
+ if(!currentUser||currentUser.uid!==ADMIN_UID)return notify("Admin অনুমতি প্রয়োজন।");
+ if(!["approved","rejected"].includes(decision))return notify("সঠিক সিদ্ধান্ত নির্বাচন করুন।");
+ const note=$("note_"+id)?.value.trim()||"";
+ try{
+  await db.runTransaction(async tx=>{
+   const subRef=db.collection("submissions").doc(id);
+   const subSnap=await tx.get(subRef);
+   if(!subSnap.exists)throw Error("Submission পাওয়া যায়নি।");
+   const sub=subSnap.data();
+   if(sub.status!=="pending")throw Error("এই Submission আগেই Review হয়েছে।");
+   let walletRef,walletSnap,taskSnap,ledgerRef,ledgerSnap;
+   let balance=0,reward=0;
+   if(decision==="approved"){
+    walletRef=db.collection("wallets").doc(sub.userId);
+    const taskRef=db.collection("tasks").doc(sub.taskId);
+    ledgerRef=db.collection("transactions").doc("task_"+id);
+    taskSnap=await tx.get(taskRef);
+    walletSnap=await tx.get(walletRef);
+    ledgerSnap=await tx.get(ledgerRef);
+    if(!taskSnap.exists)throw Error("Task পাওয়া যায়নি।");
+    if(!walletSnap.exists)throw Error("সদস্যের Wallet পাওয়া যায়নি।");
+    if(ledgerSnap.exists)throw Error("এই Task-এর Reward আগে যোগ হয়েছে।");
+    reward=Number(taskSnap.data().reward||0);
+    if(!Number.isFinite(reward)||reward<=0)throw Error("Reward শূন্য বা ভুল।");
+    balance=Number(walletSnap.data().balance||0);
+    if(!Number.isFinite(balance)||balance<0)throw Error("Wallet Balance সঠিক নয়।");
+   }
+   tx.update(subRef,{status:decision,adminNote:note,reviewedBy:currentUser.uid,reviewedAt:serverTime()});
+   if(decision==="approved"){
+    const newBalance=balance+reward;
+    tx.update(walletRef,{balance:newBalance,updatedAt:serverTime()});
+    tx.set(ledgerRef,{
+     userId:sub.userId,type:"task_reward",amount:reward,balanceAfter:newBalance,
+     referenceId:id,note:"Approved Task: "+sub.taskTitle,status:"completed",createdAt:serverTime()
+    });
+   }
+  });
+  notify(decision==="approved"?"Submission Approved হয়েছে। Wallet-এ Reward যোগ হয়েছে।":"Submission Rejected হয়েছে।");
+  await loadAdmin();
+ }catch(e){notify(errorText(e))}
+};
+
+/* MEMBERS */
+function renderAdminMembers(){
+ const q=$("memberSearch").value.trim().toLowerCase();
+ const filtered=members.filter(m=>
+  (m.name||"").toLowerCase().includes(q)||
+  (m.email||"").toLowerCase().includes(q)||
+  (m.phoneNumber||"").toLowerCase().includes(q)
+ );
+ $("adminMembers").innerHTML=filtered.length?filtered.map(m=>`
+  <div class="task">
+   <h3>${esc(m.name)}</h3>
+   <p>${esc(m.email||m.phoneNumber||"")}</p>
+   <p class="small">UID: ${esc(m.uid)}</p>
+   <p>Referral: ${esc(m.referralCode||"—")}</p>
+   <p class="small">Joined: ${date(m.createdAt)}</p>
+  </div>`).join(""):"<p>সদস্য পাওয়া যায়নি।</p>";
+}
+$("memberSearch").oninput=renderAdminMembers;
+
+/* WITHDRAWAL MANAGEMENT */
+function renderAdminWithdrawals(){
+ $("adminWithdrawals").innerHTML=withdrawals.length?withdrawals.map(w=>`
+  <div class="task">
+   <h3>${money(w.amount)} — ${esc(w.method)}</h3>
+   <p>Member: ${esc(w.userName)}</p>
+   <p>Phone: ${esc(w.phone)}</p>
+   <p class="small">UID: ${esc(w.userId)}</p>
+   <span class="badge">${esc(statusText(w.status))}</span>
+   ${w.status==="pending"?`
+    <label>বাস্তব পেমেন্টের TrxID</label>
+    <input id="trx_${esc(w.id)}" placeholder="Payment Transaction ID">
+    <div class="row">
+     <button class="green" onclick="markWithdrawalPaid('${esc(w.id)}')">Paid Confirm</button>
+     <button class="red" onclick="rejectWithdrawal('${esc(w.id)}')">Reject</button>
+    </div>`:`
+    <p>Transaction ID: ${esc(w.transactionId||"—")}</p>
+    <p>Admin Note: ${esc(w.adminNote||"")}</p>`}
+  </div>`).join(""):"<p>কোনো Withdrawal Request নেই।</p>";
+}
+
+window.markWithdrawalPaid=async id=>{
+ if(!currentUser||currentUser.uid!==ADMIN_UID)return notify("Admin অনুমতি প্রয়োজন।");
+ const trxid=$("trx_"+id)?.value.trim();
+ if(!trxid)return notify("বাস্তব Transaction ID লিখুন।");
+ const paymentId=encodeURIComponent(trxid.toUpperCase());
+ try{
+  await db.runTransaction(async tx=>{
+   const wRef=db.collection("withdrawals").doc(id);
+   const wSnap=await tx.get(wRef);
+   if(!wSnap.exists)throw Error("Withdrawal পাওয়া যায়নি।");
+   const w=wSnap.data();
+   if(w.status!=="pending")throw Error("এই আবেদন আগে নিষ্পত্তি হয়েছে।");
+   const walletRef=db.collection("wallets").doc(w.userId);
+   const paymentRef=db.collection("paymentRefs").doc(paymentId);
+   const ledgerRef=db.collection("transactions").doc("withdraw_"+id);
+   const walletSnap=await tx.get(walletRef);
+   const paymentSnap=await tx.get(paymentRef);
+   const ledgerSnap=await tx.get(ledgerRef);
+   if(!walletSnap.exists)throw Error("Wallet পাওয়া যায়নি।");
+   if(paymentSnap.exists)throw Error("এই Transaction ID আগে ব্যবহার হয়েছে।");
+   if(ledgerSnap.exists)throw Error("এই Withdrawal আগে হিসাব করা হয়েছে।");
+   const balance=Number(walletSnap.data().balance||0);
+   const amount=Number(w.amount);
+   if(!Number.isFinite(amount)||amount<=0||amount>balance)throw Error("Wallet Balance যথেষ্ট নয়।");
+   const after=balance-amount;
+   tx.update(walletRef,{balance:after,updatedAt:serverTime()});
+   tx.update(wRef,{status:"paid",transactionId:trxid,reviewedBy:currentUser.uid,reviewedAt:serverTime()});
+   tx.set(paymentRef,{transactionId:trxid,withdrawalId:id,userId:w.userId,createdAt:serverTime()});
+   tx.set(ledgerRef,{
+    userId:w.userId,type:"withdrawal",amount:-amount,balanceAfter:after,
+    referenceId:id,note:w.method+" Withdrawal: "+trxid,status:"completed",createdAt:serverTime()
+   });
+  });
+  notify("Paid হিসেবে সংরক্ষিত হয়েছে।");
+  await loadAdmin();
+ }catch(e){notify(errorText(e))}
+};
+
+window.rejectWithdrawal=async id=>{
+ if(!currentUser||currentUser.uid!==ADMIN_UID)return notify("Admin অনুমতি প্রয়োজন।");
+ try{
+  const ref=db.collection("withdrawals").doc(id);
+  await db.runTransaction(async tx=>{
+   const snap=await tx.get(ref);
+   if(!snap.exists)throw Error("Withdrawal পাওয়া যায়নি।");
+   if(snap.data().status!=="pending")throw Error("এই আবেদন আগে নিষ্পত্তি হয়েছে।");
+   tx.update(ref,{status:"rejected",reviewedBy:currentUser.uid,reviewedAt:serverTime()});
+  });
+  notify("Withdrawal আবেদন Reject হয়েছে।");
+  await loadAdmin();
+ }catch(e){notify(errorText(e))}
+};
+
+/* TRANSACTIONS */
+function renderTransactions(list){
+ if(!list.length)return "<p>কোনো Transaction নেই।</p>";
+ return list.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0)).map(t=>`
+  <div class="task">
+   <h3>${esc(t.type)}</h3>
+   <p>পরিমাণ: ${money(t.amount)}</p>
+   <p>Balance After: ${money(t.balanceAfter)}</p>
+   <p>${esc(t.note||"")}</p>
+   <span class="badge">${esc(t.status||"")}</span>
+   <p class="small">${date(t.createdAt)}</p>
+  </div>`).join("");
+}
+async function loadAdminLedger(){
+ const snap=await db.collection("transactions").get();
+ $("adminLedger").innerHTML=renderTransactions(snap.docs.map(d=>({id:d.id,...d.data()})));
+}
+
+/* ADMIN REFERRAL MANAGEMENT */
+async function loadAdminReferrals(){
+ const snap=await db.collection("referrals").get();
+ const list=snap.docs.map(d=>({id:d.id,...d.data()}));
+ $("adminReferrals").innerHTML=list.length?list.map(r=>`
+  <div class="task">
+   <h3>${esc(r.referredName||"Member")}</h3>
+   <p>নতুন সদস্য: ${esc(r.referredEmail||r.referredPhone||"")}</p>
+   <p>Referrer UID: ${esc(r.referrerUid)}</p>
+   <p>Referral Code: ${esc(r.referralCode)}</p>
+   <span class="badge">${esc(statusText(r.status))}</span>
+   <p>Bonus: ${money(r.bonusAmount||0)}</p>
+   <p class="small">তারিখ: ${date(r.createdAt)}</p>
+   ${r.status==="pending"?`
+    <textarea id="refNote_${esc(r.id)}" placeholder="Admin Note (ঐচ্ছিক)"></textarea>
+    <div class="row">
+     <button class="green" onclick="reviewReferral('${esc(r.id)}','approved')">Approve Bonus</button>
+     <button class="red" onclick="reviewReferral('${esc(r.id)}','rejected')">Reject</button>
+    </div>`:`<p>Admin Note: ${esc(r.adminNote||"নেই")}</p>`}
+  </div>`).join(""):"<p>এখনো কোনো Referral আবেদন নেই।</p>";
+}
+
+window.reviewReferral=async(id,decision)=>{
+ if(!currentUser||currentUser.uid!==ADMIN_UID)return notify("Admin অনুমতি প্রয়োজন।");
+ if(!["approved","rejected"].includes(decision))return notify("সঠিক সিদ্ধান্ত দিন।");
+ const note=$("refNote_"+id)?.value.trim()||"";
+ if(decision==="approved"&&!confirm("Referral যাচাই করেছেন এবং Bonus দেওয়ার অনুমোদন দিচ্ছেন?"))return;
+ try{
+  await db.runTransaction(async tx=>{
+   const ref=db.collection("referrals").doc(id);
+   const refSnap=await tx.get(ref);
+   if(!refSnap.exists)throw Error("Referral পাওয়া যায়নি।");
+   const referral=refSnap.data();
+   if(referral.status!=="pending")throw Error("এই Referral আগে Review হয়েছে।");
+   if(decision==="rejected"){
+    tx.update(ref,{status:"rejected",adminNote:note,reviewedBy:currentUser.uid,reviewedAt:serverTime()});
+    return;
+   }
+   const settingsRef=db.collection("settings").doc("referral");
+   const settingsSnap=await tx.get(settingsRef);
+   if(!settingsSnap.exists)throw Error("Referral Settings তৈরি করা হয়নি।");
+   const settings=settingsSnap.data();
+   const bonus=Number(settings.bonusAmount);
+   if(settings.enabled!==true||!Number.isFinite(bonus)||bonus<=0)throw Error("Referral Bonus চালু নেই অথবা Bonus Amount শূন্য।");
+   if(!referral.referrerUid||referral.referrerUid===referral.referredUid)throw Error("Referral তথ্য সঠিক নয়।");
+   const walletRef=db.collection("wallets").doc(referral.referrerUid);
+   const walletSnap=await tx.get(walletRef);
+   const ledgerRef=db.collection("transactions").doc("referral_bonus_"+id);
+   const ledgerSnap=await tx.get(ledgerRef);
+   if(!walletSnap.exists)throw Error("Referrer Wallet পাওয়া যায়নি।");
+   if(ledgerSnap.exists)throw Error("এই Referral Bonus আগে দেওয়া হয়েছে।");
+   const balance=Number(walletSnap.data().balance||0);
+   if(!Number.isFinite(balance)||balance<0)throw Error("Wallet Balance সঠিক নয়।");
+   const newBalance=balance+bonus;
+   tx.update(walletRef,{balance:newBalance,updatedAt:serverTime()});
+   tx.update(ref,{
+    status:"approved",bonusAmount:bonus,adminNote:note,
+    reviewedBy:currentUser.uid,reviewedAt:serverTime()
+   });
+   tx.set(ledgerRef,{
+    userId:referral.referrerUid,type:"referral_bonus",amount:bonus,
+    balanceAfter:newBalance,referenceId:id,note:"Approved Referral Bonus",
+    status:"completed",createdAt:serverTime()
+   });
+  });
+  notify(decision==="approved"?"Referral Approved হয়েছে এবং Bonus Wallet-এ যোগ হয়েছে।":"Referral Reject হয়েছে। কোনো Bonus যোগ হয়নি।");
+  await loadAdmin();
+ }catch(e){notify(errorText(e))}
+};
+
+/* REFERRAL SETTINGS */
+async function loadReferralSettings(){
+ const snap=await db.collection("settings").doc("referral").get();
+ if(snap.exists){
+  const s=snap.data();
+  $("refBonusAmount").value=Number(s.bonusAmount||0);
+  $("refEnabled").checked=s.enabled===true;
+ }else{
+  $("refBonusAmount").value=0;
+  $("refEnabled").checked=false;
+ }
+}
+$("saveReferralSettings").onclick=async()=>{
+ const amount=Number($("refBonusAmount").value);
+ const enabled=$("refEnabled").checked;
+ if($("refBonusAmount").value===""||!Number.isFinite(amount)||amount<0){
+  return message("settingsMessage","সঠিক Bonus Amount লিখুন।");
+ }
+ $("saveReferralSettings").disabled=true;
+ try{
+  await db.collection("settings").doc("referral").set({
+   bonusAmount:amount,enabled:enabled&&amount>0,
+   updatedAt:serverTime(),updatedBy:currentUser.uid
+  });
+  message("settingsMessage","Referral Settings সফলভাবে সংরক্ষণ হয়েছে।");
+ }catch(e){message("settingsMessage",errorText(e))}
+ finally{$("saveReferralSettings").disabled=false}
+};
+
+/* SUPPORT INBOX */
+async function loadAdminSupport(){
+ const snap=await db.collection("supportTickets").get();
+ const list=snap.docs.map(d=>({id:d.id,...d.data()}));
+ $("adminSupport").innerHTML=list.length?list.map(t=>`
+  <div class="task">
+   <h3>${esc(t.userName||"Member")}</h3>
+   <p class="small">UID: ${esc(t.userId)}</p>
+   <p>${esc(t.message)}</p>
+   <span class="badge">${esc(statusText(t.status))}</span>
+   <p>আগের Reply: ${esc(t.reply||"নেই")}</p>
+   ${t.status!=="resolved"?`
+    <textarea id="reply_${esc(t.id)}" placeholder="সদস্যকে উত্তর লিখুন"></textarea>
+    <button class="green" onclick="replyTicket('${esc(t.id)}')">Reply & Resolve</button>`:""}
+  </div>`).join(""):"<p>কোনো Support Ticket নেই।</p>";
+}
+window.replyTicket=async id=>{
+ if(!currentUser||currentUser.uid!==ADMIN_UID)return notify("Admin অনুমতি প্রয়োজন।");
+ const reply=$("reply_"+id)?.value.trim();
+ if(!reply)return notify("উত্তর লিখুন।");
+ try{
+  await db.collection("supportTickets").doc(id).update({
+   reply,status:"resolved",repliedBy:currentUser.uid,repliedAt:serverTime()
+  });
+  notify("Reply পাঠানো হয়েছে।");
+  await loadAdminSupport();
+ }catch(e){notify(errorText(e))}
+};
+
+/* START */
+setMode("member");
+setAuthTab("email");
+setRegTab("email");
+</script>
+</body>
+</html>
