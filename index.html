@@ -1,0 +1,1480 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#081426">
+<title>EARNOVA | Work • Earn • Grow</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#081426;--panel:#10213a;--panel2:#142944;--gold:#f5bd4f;--muted:#9aabc1;--green:#27c78a;--red:#ff6878;--line:#263c58}
+body{font-family:Arial,sans-serif;background:var(--bg);color:#f5f7fb;min-height:100vh}
+header{background:var(--panel);border-bottom:1px solid var(--line);padding:15px;display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;z-index:5}
+.logo{font-weight:900;color:var(--gold);font-size:21px;letter-spacing:1px}
+header small{color:var(--muted);display:block;font-size:10px;margin-top:3px}
+main{max-width:1100px;margin:auto;padding:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+h2{font-size:19px;margin-bottom:12px;color:var(--gold)}
+h3{font-size:15px;margin-bottom:9px}
+p,.muted{color:var(--muted);font-size:13px;line-height:1.6}
+label{font-size:13px;color:#dce6f4}
+input,select,textarea{width:100%;background:var(--bg);color:white;border:1px solid #344b68;border-radius:9px;padding:12px;margin:6px 0 12px;outline:none;font-size:14px}
+textarea{min-height:75px;resize:vertical}
+button{border:0;border-radius:9px;padding:11px 14px;background:var(--gold);color:#172235;font-weight:700;cursor:pointer;margin:3px;font-size:13px}
+button:disabled{opacity:.5;cursor:not-allowed}
+button.secondary{background:#263d5b;color:white}
+button.danger{background:#9d3548;color:white}
+button.success{background:#147c5b;color:white}
+button.full{width:100%;margin:5px 0}
+nav{display:flex;gap:7px;overflow-x:auto;padding:10px 0;margin-bottom:12px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{white-space:nowrap;background:#1b304b;color:#dce6f4}
+nav button.active{background:var(--gold);color:#172235}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}
+.stat{background:var(--panel2);padding:14px;border-radius:12px;border:1px solid var(--line)}
+.stat b{font-size:21px;color:var(--gold);display:block;margin-top:7px}
+.stat span{font-size:12px;color:var(--muted)}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.item{background:var(--panel2);border:1px solid var(--line);padding:13px;border-radius:11px;margin:9px 0;overflow-wrap:anywhere}
+.item p{margin:5px 0}
+.tag{display:inline-block;border-radius:20px;padding:4px 8px;font-size:11px;background:#253c58;color:#dce6f4}
+.good{color:var(--green)}.bad{color:var(--red)}
+.hidden{display:none!important}.center{text-align:center}
+#message{position:fixed;bottom:15px;left:50%;transform:translateX(-50%);background:#203b59;color:white;padding:12px 18px;border-radius:10px;z-index:20;display:none;max-width:90%;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
+hr{border:0;border-top:1px solid var(--line);margin:12px 0}
+small{color:var(--muted)}
+a{color:var(--gold);font-size:13px;overflow-wrap:anywhere}
+.progress{height:9px;background:#263c58;border-radius:10px;overflow:hidden;margin:10px 0}
+.progress-bar{height:100%;background:var(--green);transition:width .3s}
+@media(min-width:700px){main{padding:24px}.authbox{max-width:430px;margin:50px auto}}
+</style>
+</head>
+<body>
+<header>
+ <div><div class="logo">EARNOVA</div><small>WORK • EARN • GROW</small></div>
+ <div id="headerUser" class="muted">Welcome</div>
+</header>
+
+<main>
+<section id="authSection" class="authbox">
+ <div class="card">
+  <h2>Welcome to EARNOVA</h2>
+  <p>আপনার অ্যাকাউন্টে প্রবেশ করুন অথবা নতুন অ্যাকাউন্ট খুলুন।</p>
+  <nav>
+   <button id="loginTab" class="active" onclick="showAuth('login')">Login</button>
+   <button id="registerTab" onclick="showAuth('register')">Register</button>
+  </nav>
+  <div id="loginForm">
+   <label>Email</label><input id="loginEmail" type="email" placeholder="আপনার ইমেইল">
+   <label>Password</label><input id="loginPassword" type="password" placeholder="পাসওয়ার্ড">
+   <button class="full" onclick="login()">Login</button>
+   <button class="secondary full" onclick="forgotPassword()">Forgot password?</button>
+  </div>
+  <div id="registerForm" class="hidden">
+   <label>Full Name</label><input id="regName" placeholder="আপনার নাম">
+   <label>Email</label><input id="regEmail" type="email" placeholder="ইমেইল">
+   <label>Mobile Number</label><input id="regPhone" placeholder="মোবাইল নম্বর">
+   <label>Password</label><input id="regPassword" type="password" placeholder="কমপক্ষে ৬ অক্ষর">
+   <label>Referral Code (Optional)</label><input id="regReferral" placeholder="রেফারেল কোড">
+   <button class="full" onclick="register()">Create Account</button>
+  </div>
+ </div>
+</section>
+
+<section id="appSection" class="hidden">
+ <nav id="memberNav">
+  <button class="active" onclick="showPage('home',this)">Home</button>
+  <button onclick="showPage('deposit',this)">Deposit</button>
+  <button onclick="showPage('withdraw',this)">Withdraw</button>
+  <button onclick="showPage('tasks',this)">Tasks</button>
+  <button onclick="showPage('posttask',this)">Post Task</button>
+  <button onclick="showPage('packages',this)">Packages</button>
+  <button onclick="showPage('referral',this)">Referral</button>
+  <button onclick="showPage('gift',this)">Gift</button>
+  <button onclick="showPage('history',this)">History</button>
+  <button id="adminNavBtn" class="hidden" onclick="showPage('admin',this)">Admin Panel</button>
+  <button class="danger" onclick="logout()">Logout</button>
+ </nav>
+
+ <section id="page-home" class="page">
+  <div class="card">
+   <h2 id="welcomeName">Dashboard</h2>
+   <p>আপনার EARNOVA অ্যাকাউন্টের সারসংক্ষেপ।</p>
+   <div class="grid" style="margin-top:14px">
+    <div class="stat"><span>Wallet Balance</span><b id="walletBalance">$0.00</b></div>
+    <div class="stat"><span>Pending Earnings</span><b id="pendingBalance">$0.00</b></div>
+    <div class="stat"><span>Active Package</span><b id="activePackage">None</b></div>
+   </div>
+  </div>
+  <div class="card"><h2>Active Package & Daily Progress</h2><div id="homePackageDetails"><p>প্যাকেজের তথ্য লোড হচ্ছে...</p></div></div>
+  <div class="card"><h2>Account Information</h2><p id="accountInfo"></p></div>
+ </section>
+
+ <section id="page-deposit" class="page hidden">
+  <div class="card">
+   <h2>Deposit Request</h2>
+   <p>নিচের পেমেন্ট নম্বরে টাকা পাঠিয়ে সঠিক Transaction ID দিয়ে আবেদন করুন। Admin যাচাই করে অনুমোদন করবেন।</p>
+   <div id="paymentNumbers" class="item">পেমেন্ট নম্বর Admin সেট করবেন।</div>
+   <label>Payment Method</label>
+   <select id="depositMethod"><option value="bKash">bKash</option><option value="Nagad">Nagad</option></select>
+   <label>Amount (USD)</label><input id="depositAmount" type="number" min="0.01" step="0.01" placeholder="যেমন 10">
+   <label>Transaction ID</label><input id="depositTxid" placeholder="Transaction ID">
+   <button class="full" onclick="requestDeposit()">Submit Deposit Request</button>
+  </div>
+ </section>
+
+ <section id="page-withdraw" class="page hidden">
+  <div class="card">
+   <h2>Withdraw Request</h2>
+   <p>উইথড্র আবেদন Admin যাচাই করবেন। অনুমোদন ও Paid করার পর Wallet থেকে অর্থ কাটা হবে।</p>
+   <p>Available Balance: <b id="withdrawBalance">$0.00</b></p>
+   <label>Payment Method</label>
+   <select id="withdrawMethod"><option value="bKash">bKash</option><option value="Nagad">Nagad</option><option value="USDT">USDT</option></select>
+   <label>Account Number / Wallet Address</label><input id="withdrawAccount" placeholder="আপনার পেমেন্ট নম্বর">
+   <label>Amount (USD)</label><input id="withdrawAmount" type="number" min="0.01" step="0.01" placeholder="যেমন 5">
+   <button class="full" onclick="requestWithdraw()">Submit Withdraw Request</button>
+  </div>
+ </section>
+
+ <section id="page-tasks" class="page hidden">
+  <div class="card"><h2>Community Tasks</h2><p>অন্যান্য মেম্বারদের দেওয়া কাজগুলো সম্পন্ন করে ইনকাম করুন।</p><div id="communityTasks"></div></div>
+  <div class="card"><h2>Admin Tasks</h2><p>অ্যাডমিনের দেওয়া স্পেশাল কাজগুলো সম্পন্ন করুন।</p><div id="ordinaryTasks"></div></div>
+  <div class="card"><h2>Package Daily Tasks</h2><p>এই টাস্ক শুধু Active Package Member-দের জন্য। প্রতিটি টাস্কে ৫ সেকেন্ড অপেক্ষা করতে হবে। সব টাস্ক শেষ হলে <b>সাথে সাথেই আপনার অ্যাকাউন্টে টাকা যোগ হবে।</b></p><div id="packageTasks"></div></div>
+ </section>
+ 
+ <section id="page-posttask" class="page hidden">
+  <div class="card">
+   <h2>Post a Community Task</h2>
+   <p>আপনার Wallet ব্যালেন্স ব্যবহার করে অন্যান্য মেম্বারদের দিয়ে আপনার কাজ করিয়ে নিন।</p>
+   <p>Current Balance: <b id="postTaskBalance">$0.00</b></p><hr>
+   <label>Task Title</label><input id="userTaskTitle" placeholder="e.g., Subscribe my YouTube Channel">
+   <label>Task URL</label><input id="userTaskUrl" placeholder="https://...">
+   <label>Instructions (কী করতে হবে)</label><textarea id="userTaskDetails" placeholder="১. লিংকে যান... ২. সাবস্ক্রাইব করুন..."></textarea>
+   <label>Reward Per Worker (USD)</label><input id="userTaskReward" type="number" min="0.01" step="0.01" value="0.05" oninput="calculateTaskCost()">
+   <label>Total Workers Needed</label><input id="userTaskWorkers" type="number" min="1" step="1" value="10" oninput="calculateTaskCost()">
+   <div class="item">
+       <p>Total Cost (অ্যাডভান্স কাটা হবে): <b id="userTaskTotalCost">$0.50</b></p>
+   </div>
+   <button class="full success" onclick="submitUserTask()">Pay & Post Task</button>
+  </div>
+ </section>
+
+ <section id="page-packages" class="page hidden">
+  <div class="card"><h2>Available Packages</h2><div id="packageList"></div></div>
+  <div class="card"><h2>My Package</h2><div id="myPackage"></div></div>
+ </section>
+
+ <section id="page-referral" class="page hidden">
+  <div class="card">
+   <h2>3-Generation Referral Program</h2>
+   <p>বন্ধুদের রেফার করুন এবং ৩ জেনারেশন পর্যন্ত কমিশন ও ইনস্ট্যান্ট সাইন-আপ বোনাস পান!</p>
+   <div class="item">Your Code: <b id="myReferralCode">—</b></div>
+   <button class="secondary full" onclick="copyReferralCode()">Copy Referral Code</button>
+   <div class="item">Your Referral Link: <br><a href="#" id="myReferralLink" onclick="event.preventDefault()">—</a></div>
+   <button class="full" onclick="copyReferralLink()">Copy Referral Link</button>
+   <hr>
+   <div id="referralList"><p>লোড হচ্ছে...</p></div>
+  </div>
+ </section>
+
+ <section id="page-gift" class="page hidden">
+  <div class="card">
+   <h2>Redeem Gift Card</h2>
+   <p>Gift Card Code জমা দিন। কোড সঠিক হলে সাথে সাথেই আপনার Wallet-এ অর্থ যোগ হয়ে যাবে।</p>
+   <label>Gift Card Code</label><input id="giftCode" placeholder="আপনার Gift Card Code">
+   <button class="full" onclick="redeemGift()">Redeem Now</button>
+  </div>
+ </section>
+
+ <section id="page-history" class="page hidden"><div class="card"><h2>Transactions & Requests</h2><div id="historyList"></div></div></section>
+
+ <section id="page-admin" class="page hidden">
+  <div class="card">
+   <h2>Admin Dashboard</h2>
+   <div class="grid">
+    <div class="stat"><span>Total Members</span><b id="adminMembers">0</b></div>
+    <div class="stat"><span>Pending Deposits</span><b id="adminDeposits">0</b></div>
+    <div class="stat"><span>Pending Withdrawals</span><b id="adminWithdrawals">0</b></div>
+    <div class="stat"><span>Total Proofs</span><b id="adminEarnings">0</b></div>
+   </div>
+  </div>
+  <nav id="adminNav">
+   <button class="active" onclick="showAdminTab('overview',this)">Overview</button>
+   <button onclick="showAdminTab('members',this)">Members</button>
+   <button onclick="showAdminTab('packages',this)">Packages</button>
+   <button onclick="showAdminTab('tasks',this)">Admin Tasks</button>
+   <button onclick="showAdminTab('proofs',this)">Task Proofs</button>
+   <button onclick="showAdminTab('daily',this)">Package Income</button>
+   <button onclick="showAdminTab('deposits',this)">Deposits</button>
+   <button onclick="showAdminTab('withdrawals',this)">Withdrawals</button>
+   <button onclick="showAdminTab('settings',this)">Settings</button>
+   <button onclick="showAdminTab('refsettings',this)">Ref Settings</button>
+   <button onclick="showAdminTab('gifts',this)">Gift Cards</button>
+  </nav>
+  <div id="admin-overview" class="adminTab"><div class="card"><h2>Admin Overview</h2><p>সকল পেমেন্ট ও টাস্ক যাচাই করুন।</p></div></div>
+  <div id="admin-members" class="adminTab hidden"><div class="card"><h2>Members</h2><div id="adminMemberList"></div></div></div>
+
+  <div id="admin-packages" class="adminTab hidden">
+   <div class="card">
+    <h2>Create / Update Package</h2>
+    <input id="pkgId" type="hidden">
+    <label>Package Name</label><input id="pkgName" placeholder="Starter / Standard / Premium">
+    <label>Price (USD)</label><input id="pkgPrice" type="number" min="0" step="0.01">
+    <label>Duration (Days)</label><input id="pkgDuration" type="number" min="1">
+    <label>Daily Task Count</label><input id="pkgTaskCount" type="number" min="1">
+    <label>Daily Potential Income (USD)</label><input id="pkgDailyIncome" type="number" min="0" step="0.01">
+    <label>Package Details</label><textarea id="pkgDetails"></textarea>
+    <label>Status</label><select id="pkgActive"><option value="true">Active</option><option value="false">Inactive</option></select>
+    <button onclick="savePackage()">Save Package</button><button class="secondary" onclick="clearPackageForm()">Clear</button>
+   </div>
+   <div class="card"><h2>All Packages</h2><div id="adminPackageList"></div></div>
+   <div class="card"><h2>Package Purchase Requests</h2><div id="packageRequestsList"></div></div>
+  </div>
+
+  <div id="admin-tasks" class="adminTab hidden">
+   <div class="card">
+    <h2>Create Admin Task</h2>
+    <label>Task Title</label><input id="taskTitle" placeholder="Task title">
+    <label>Task URL</label><input id="taskUrl" placeholder="https://...">
+    <label>Instructions</label><textarea id="taskDetails" placeholder="কী করতে হবে লিখুন"></textarea>
+    <label>Reward (USD)</label><input id="taskReward" type="number" min="0" step="0.01">
+    <label>Assign Member UID (Optional)</label><input id="taskUid" placeholder="Member UID">
+    <button onclick="createTask()">Create Admin Task</button>
+   </div>
+   <div class="card"><h2>All Tasks</h2><div id="adminTaskList"></div></div>
+  </div>
+
+  <div id="admin-proofs" class="adminTab hidden"><div class="card"><h2>Task Proofs</h2><div id="proofList"></div></div></div>
+  <div id="admin-daily" class="adminTab hidden"><div class="card"><h2>Package Daily Incomes</h2><div id="dailyList"></div></div></div>
+  <div id="admin-deposits" class="adminTab hidden"><div class="card"><h2>Deposit Requests</h2><div id="depositList"></div></div></div>
+  <div id="admin-withdrawals" class="adminTab hidden"><div class="card"><h2>Withdraw Requests</h2><div id="withdrawList"></div></div></div>
+
+  <div id="admin-settings" class="adminTab hidden">
+   <div class="card">
+    <h2>Payment Settings</h2>
+    <label>bKash Number</label><input id="setBkash" placeholder="01XXXXXXXXX">
+    <label>Nagad Number</label><input id="setNagad" placeholder="01XXXXXXXXX">
+    <label>Minimum Withdraw (USD)</label><input id="setMinWithdraw" type="number" min="0" step="0.01">
+    <button onclick="saveSettings()">Save Settings</button>
+   </div>
+  </div>
+
+  <div id="admin-refsettings" class="adminTab hidden">
+   <div class="card">
+    <h2>Referral & Bonus Settings</h2>
+    <p>সাইন-আপ বোনাস এবং ৩ জেনারেশন রেফারেল কমিশন কনফিগার করুন (USD-তে)।</p><br>
+    <label>Instant Signup Bonus (USD) [যেমন: $1.00 বা 100 টাকা]</label><input id="setSignupBonus" type="number" min="0" step="0.01" value="1.00">
+    <label>1st Generation Commission (USD)</label><input id="setGen1" type="number" min="0" step="0.01" value="0.50">
+    <label>2nd Generation Commission (USD)</label><input id="setGen2" type="number" min="0" step="0.01" value="0.25">
+    <label>3rd Generation Commission (USD)</label><input id="setGen3" type="number" min="0" step="0.01" value="0.10">
+    <button onclick="saveRefSettings()">Save Referral Settings</button>
+   </div>
+  </div>
+
+  <div id="admin-gifts" class="adminTab hidden">
+   <div class="card">
+    <h2>Create Gift Card</h2>
+    <label>Gift Code</label><input id="newGiftCode" placeholder="EARNOVA100">
+    <label>Reward (USD)</label><input id="newGiftAmount" type="number" min="0.01" step="0.01">
+    <label>Usage Limit</label><input id="newGiftLimit" type="number" min="1" value="1">
+    <button onclick="createGift()">Create Gift Card</button>
+    <div id="giftAdminList"></div>
+   </div>
+   <div class="card"><h2>Recent Redemptions</h2><div id="giftRequestList"></div></div>
+  </div>
+ </section>
+</section>
+</main>
+
+<div id="message"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script>
+"use strict";
+
+const firebaseConfig={
+ apiKey:"AIzaSyCcSIdR99qw1vKk-QukJoT1JHJi4y3EIP0",
+ authDomain:"earnova-platform-be3ac.firebaseapp.com",
+ projectId:"earnova-platform-be3ac",
+ storageBucket:"earnova-platform-be3ac.firebasestorage.app",
+ messagingSenderId:"1015646195630",
+ appId:"1:564619563:web:148cacb0e40cd763a0823f"
+};
+
+const ADMIN_UID="vBYFpQi600dNJX8WmcMNRiZH6JN2";
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth();
+const db=firebase.firestore();
+
+let currentUser=null,userData=null,walletData=null,isAdmin=false;
+let packageCache=[],taskCache=[],activeMembership=null,membershipUnsub=null;
+let messageTimer=null;
+
+const $=id=>document.getElementById(id);
+const money=n=>"$"+Number(n||0).toFixed(2);
+const serverTime=()=>firebase.firestore.FieldValue.serverTimestamp();
+const increment=n=>firebase.firestore.FieldValue.increment(n);
+
+function today(){
+ const d=new Date();
+ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+function safe(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function validAmount(n){return Number.isFinite(n)&&n>0}
+function msg(t){
+ $("message").textContent=t;
+ $("message").style.display="block";
+ clearTimeout(messageTimer);
+ messageTimer=setTimeout(()=>$("message").style.display="none",3500);
+}
+function err(e){
+ console.error(e);
+ msg(e?.message||"কাজটি সম্পন্ন হয়নি।");
+}
+function requireLogin(){
+ if(!currentUser)throw new Error("আগে Login করুন।");
+}
+function requireAdmin(){
+ if(!currentUser||!isAdmin||currentUser.uid!==ADMIN_UID)throw new Error("Admin access required.");
+}
+
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if(urlParams.has('ref')) {
+        showAuth('register');
+        $("regReferral").value = urlParams.get('ref');
+    } else {
+        showAuth('login');
+    }
+};
+
+function showAuth(type){
+ $("loginForm").classList.toggle("hidden",type!=="login");
+ $("registerForm").classList.toggle("hidden",type!=="register");
+ $("loginTab").classList.toggle("active",type==="login");
+ $("registerTab").classList.toggle("active",type==="register");
+}
+function showPage(name,btn){
+ document.querySelectorAll(".page").forEach(x=>x.classList.add("hidden"));
+ $("page-"+name).classList.remove("hidden");
+ document.querySelectorAll("#memberNav button").forEach(x=>x.classList.remove("active"));
+ if(btn)btn.classList.add("active");
+ if(name==="home")loadDashboard();
+ if(name==="tasks")loadMemberTasks();
+ if(name==="posttask")$("postTaskBalance").textContent=money(walletData?.balance||0);
+ if(name==="packages")loadMemberPackages();
+ if(name==="history")loadHistory();
+ if(name==="referral")loadReferrals();
+ if(name==="admin"&&isAdmin)loadAdmin();
+}
+function showAdminTab(name,btn){
+ if(!isAdmin)return msg("Admin access required.");
+ document.querySelectorAll(".adminTab").forEach(x=>x.classList.add("hidden"));
+ $("admin-"+name).classList.remove("hidden");
+ document.querySelectorAll("#adminNav button").forEach(x=>x.classList.remove("active"));
+ if(btn)btn.classList.add("active");
+ loadAdminSection(name);
+}
+
+/* AUTH & 3-GENERATION REFERRAL REGISTRATION */
+async function login(){
+ try{
+  const email=$("loginEmail").value.trim(),password=$("loginPassword").value;
+  if(!email||!password)return msg("Email ও Password লিখুন।");
+  await auth.signInWithEmailAndPassword(email,password);
+ }catch(e){err(e)}
+}
+
+async function register(){
+ try{
+  const name=$("regName").value.trim(),email=$("regEmail").value.trim();
+  const phone=$("regPhone").value.trim(),pass=$("regPassword").value;
+  const refCodeInput=$("regReferral").value.trim().toUpperCase();
+  if(!name||!email||!phone||pass.length<6)return msg("সব তথ্য সঠিকভাবে পূরণ করুন। (Password কমপক্ষে 6 অক্ষর)");
+
+  // Fetch Referral settings
+  const stRef = await db.collection("settings").doc("main").get();
+  const stData = stRef.exists ? stRef.data() : {};
+  const signupBonus = Number(stData.signupBonus || 1.00);
+  const gen1Comm = Number(stData.gen1 || 0.50);
+  const gen2Comm = Number(stData.gen2 || 0.25);
+  const gen3Comm = Number(stData.gen3 || 0.10);
+
+  let gen1Uid = null, gen2Uid = null, gen3Uid = null;
+
+  if(refCodeInput){
+   const rq = await db.collection("referralCodes").where("code","==",refCodeInput).limit(1).get();
+   if(!rq.empty){
+    gen1Uid = rq.docs[0].id;
+    // Find Gen 2
+    const u1Doc = await db.collection("users").doc(gen1Uid).get();
+    if(u1Doc.exists && u1Doc.data().referredBy) {
+        gen2Uid = u1Doc.data().referredBy;
+        // Find Gen 3
+        const u2Doc = await db.collection("users").doc(gen2Uid).get();
+        if(u2Doc.exists && u2Doc.data().referredBy) {
+            gen3Uid = u2Doc.data().referredBy;
+        }
+    }
+   }
+  }
+
+  const cred = await auth.createUserWithEmailAndPassword(email,pass);
+  const uid = cred.user.uid;
+  const referralCode = "ER"+uid.slice(0,7).toUpperCase();
+
+  const batch = db.batch();
+
+  // 1. User Profile with referral chain
+  batch.set(db.collection("users").doc(uid),{
+   name, email, phone, referralCode,
+   referredBy: gen1Uid || null,
+   createdAt: serverTime(), status: "active"
+  });
+  batch.set(db.collection("referralCodes").doc(uid),{code: referralCode, uid});
+
+  // 2. Signup Bonus for new user
+  batch.set(db.collection("wallets").doc(uid),{
+   balance: signupBonus, pending: 0, updatedAt: serverTime()
+  });
+  batch.set(db.collection("transactions").doc("signup_bonus_"+uid),{
+   uid, type: "signup_bonus", amount: signupBonus, note: "Instant Signup Bonus", createdAt: serverTime()
+  });
+
+  // 3. 3-Generation Commissions
+  if(gen1Uid) {
+      batch.set(db.collection("referrals").doc(uid+"_gen1"),{
+       referrer: gen1Uid, joinedUid: uid, joinedName: name, level: 1, reward: gen1Comm, createdAt: serverTime()
+      });
+      batch.set(db.collection("wallets").doc(gen1Uid), {balance: increment(gen1Comm), updatedAt: serverTime()}, {merge: true});
+      batch.set(db.collection("transactions").doc("ref_gen1_"+uid), {
+       uid: gen1Uid, type: "referral_commission", amount: gen1Comm, note: `Gen 1 Referral Commission from ${name}`, createdAt: serverTime()
+      });
+  }
+  if(gen2Uid) {
+      batch.set(db.collection("referrals").doc(uid+"_gen2"),{
+       referrer: gen2Uid, joinedUid: uid, joinedName: name, level: 2, reward: gen2Comm, createdAt: serverTime()
+      });
+      batch.set(db.collection("wallets").doc(gen2Uid), {balance: increment(gen2Comm), updatedAt: serverTime()}, {merge: true});
+      batch.set(db.collection("transactions").doc("ref_gen2_"+uid), {
+       uid: gen2Uid, type: "referral_commission", amount: gen2Comm, note: `Gen 2 Referral Commission from ${name}`, createdAt: serverTime()
+      });
+  }
+  if(gen3Uid) {
+      batch.set(db.collection("referrals").doc(uid+"_gen3"),{
+       referrer: gen3Uid, joinedUid: uid, joinedName: name, level: 3, reward: gen3Comm, createdAt: serverTime()
+      });
+      batch.set(db.collection("wallets").doc(gen3Uid), {balance: increment(gen3Comm), updatedAt: serverTime()}, {merge: true});
+      batch.set(db.collection("transactions").doc("ref_gen3_"+uid), {
+       uid: gen3Uid, type: "referral_commission", amount: gen3Comm, note: `Gen 3 Referral Commission from ${name}`, createdAt: serverTime()
+      });
+  }
+
+  await batch.commit();
+
+  $("regName").value=""; $("regEmail").value=""; $("regPhone").value="";
+  $("regPassword").value=""; $("regReferral").value="";
+
+  msg("Account created successfully with Signup Bonus!");
+ }catch(e){err(e)}
+}
+
+async function forgotPassword(){
+ const email=$("loginEmail").value.trim();
+ if(!email)return msg("আগে Email লিখুন।");
+ try{await auth.sendPasswordResetEmail(email);msg("Password reset email পাঠানো হয়েছে।")}
+ catch(e){err(e)}
+}
+async function logout(){
+ if(membershipUnsub){membershipUnsub();membershipUnsub=null}
+ await auth.signOut();
+}
+
+/* AUTH STATE */
+auth.onAuthStateChanged(async user=>{
+ currentUser=user;
+ if(!user){
+  if(membershipUnsub){membershipUnsub();membershipUnsub=null}
+  $("authSection").classList.remove("hidden");
+  $("appSection").classList.add("hidden");
+  $("headerUser").textContent="Welcome";
+  userData=null;walletData=null;activeMembership=null;isAdmin=false;
+  return;
+ }
+ try{
+  isAdmin=user.uid===ADMIN_UID;
+  let u=await db.collection("users").doc(user.uid).get();
+  
+  if(!isAdmin && !u.exists){
+      await new Promise(res => setTimeout(res, 1500));
+      u=await db.collection("users").doc(user.uid).get();
+  }
+  
+  if(isAdmin){
+   userData=u.exists?u.data():{name:"Administrator",email:user.email||"",status:"active"};
+  }else{
+   if(!u.exists){
+       await auth.signOut();
+       throw new Error("User profile পাওয়া যায়নি। দয়া করে আবার লগিন করুন।");
+   }
+   userData=u.data();
+   if(userData.status!=="active"){
+    await auth.signOut();
+    throw new Error("আপনার অ্যাকাউন্ট বর্তমানে Active নেই।");
+   }
+  }
+  const w=await db.collection("wallets").doc(user.uid).get();
+  walletData=w.exists?w.data():{balance:0,pending:0};
+
+  $("authSection").classList.add("hidden");
+  $("appSection").classList.remove("hidden");
+  $("headerUser").textContent=userData.name||user.email||"User";
+  $("adminNavBtn").classList.toggle("hidden",!isAdmin);
+  $("welcomeName").textContent="Welcome, "+(userData.name||"Member");
+
+  await loadDashboard();
+  await loadMemberPackages();
+  await loadSettingsForMember();
+  if(!isAdmin)listenToMembership();
+  if(isAdmin){await loadAdmin();msg("Admin Login Successful")}
+  else msg("Login Successful");
+ }catch(e){console.error("Authentication State Error:",e);err(e)}
+});
+
+/* DASHBOARD */
+async function loadDashboard(){
+ if(!currentUser)return;
+ try{
+  const w=await db.collection("wallets").doc(currentUser.uid).get();
+  walletData=w.exists?w.data():{balance:0,pending:0};
+  $("walletBalance").textContent=money(walletData.balance);
+  $("pendingBalance").textContent=money(walletData.pending);
+  $("withdrawBalance").textContent=money(walletData.balance);
+  $("accountInfo").textContent="Name: "+(userData.name||"")+" | Email: "+(userData.email||currentUser.email||"")+" | UID: "+currentUser.uid;
+
+  const m=await db.collection("memberships").doc(currentUser.uid).get();
+  activeMembership=m.exists&&m.data().status==="active"?{id:m.id,...m.data()}:null;
+  $("activePackage").textContent=activeMembership?activeMembership.packageName:"None";
+  await renderHomePackage();
+ }catch(e){console.error("Dashboard error:",e);err(e)}
+}
+async function renderHomePackage(){
+ const box=$("homePackageDetails");
+ if(!box)return;
+ if(!activeMembership){box.innerHTML="<p>আপনার কোনো Active Package নেই।</p>";return}
+ try{
+  const p=await db.collection("packages").doc(activeMembership.packageId).get();
+  if(!p.exists){box.innerHTML="<p>Package পাওয়া যায়নি।</p>";return}
+  const pkg=p.data(),required=Number(pkg.dailyTaskCount||0),day=today();
+  
+  let done=0;
+  const promises = [];
+  for(let i=1; i<=required; i++){
+      const cid = `${currentUser.uid}_${activeMembership.id}_pkg_task_${i}_${day}`;
+      promises.push(db.collection("packageTaskCompletions").doc(cid).get().then(s=>s.exists?done++:0));
+  }
+  await Promise.all(promises);
+
+  const percent=required>0?Math.min(100,Math.round(done/required*100)):0;
+  box.innerHTML=`
+   <div class="item">
+    <div class="row"><h3>${safe(activeMembership.packageName||pkg.name)}</h3><span class="tag good">ACTIVE</span></div>
+    <p>প্যাকেজের মেয়াদ: ${Number(pkg.duration||0)} দিন</p>
+    <p>শুরু: ${safe(activeMembership.startDate||"")}</p>
+    <p>শেষ: ${safe(activeMembership.endDate||"")}</p><hr>
+    <p>আজকের টাস্ক: <b>${done}/${required}</b></p>
+    <div class="progress"><div class="progress-bar" style="width:${percent}%"></div></div>
+    <p>Daily Potential Income: <b>${money(pkg.dailyIncomeUSD)}</b></p>
+    <p>অগ্রগতি: ${percent}%</p>
+    <button class="full" onclick="goToPackageTasks()">প্যাকেজ টাস্ক করুন</button>
+   </div>`;
+ }catch(e){console.error(e);box.innerHTML="<p>প্যাকেজের তথ্য লোড করা যায়নি।</p>"}
+}
+function goToPackageTasks(){showPage("tasks",document.querySelector('#memberNav button:nth-child(4)'))}
+
+/* LIVE MEMBERSHIP */
+function listenToMembership(){
+ if(membershipUnsub){membershipUnsub();membershipUnsub=null}
+ if(!currentUser||isAdmin)return;
+ membershipUnsub=db.collection("memberships").doc(currentUser.uid).onSnapshot(async snap=>{
+  activeMembership=snap.exists&&snap.data().status==="active"?{id:snap.id,...snap.data()}:null;
+  $("activePackage").textContent=activeMembership?activeMembership.packageName:"None";
+  await renderHomePackage();
+  await loadMemberPackages();
+  if(!$("page-tasks").classList.contains("hidden"))await loadMemberTasks();
+ },e=>{console.error(e);err(e)});
+}
+
+/* SETTINGS */
+async function loadSettingsForMember(){
+ try{
+  const s=await db.collection("settings").doc("main").get();
+  if(s.exists){
+   const d=s.data();
+   $("paymentNumbers").innerHTML="<p>bKash: <b>"+safe(d.bkash||"Not set")+"</b></p><p>Nagad: <b>"+safe(d.nagad||"Not set")+"</b></p>";
+  }
+ }catch(e){err(e)}
+}
+
+/* DEPOSIT REQUEST */
+async function requestDeposit(){
+ try{
+  requireLogin();
+  const amount=Number($("depositAmount").value),txid=$("depositTxid").value.trim(),method=$("depositMethod").value;
+  if(!validAmount(amount)||!txid)return msg("সঠিক Amount ও Transaction ID দিন।");
+  await db.collection("deposits").add({
+   uid:currentUser.uid,name:userData.name,method,amount,txid,status:"pending",createdAt:serverTime()
+  });
+  msg("Deposit request submitted");
+  $("depositAmount").value="";$("depositTxid").value="";
+ }catch(e){err(e)}
+}
+
+/* WITHDRAW REQUEST */
+async function requestWithdraw(){
+ try{
+  requireLogin();
+  const amount=Number($("withdrawAmount").value),account=$("withdrawAccount").value.trim(),method=$("withdrawMethod").value;
+  const w=await db.collection("wallets").doc(currentUser.uid).get();
+  const bal=Number(w.data()?.balance||0);
+  const st=await db.collection("settings").doc("main").get();
+  const min=Number(st.data()?.minWithdraw||0);
+  if(!validAmount(amount)||amount<min||!account)return msg("সঠিক তথ্য দিন। Minimum: "+money(min));
+  if(amount>bal)return msg("আপনার Wallet Balance যথেষ্ট নয়।");
+  const pending=await db.collection("withdrawals").where("uid","==",currentUser.uid).where("status","==","pending").get();
+  const pendingTotal=pending.docs.reduce((sum,d)=>sum+Number(d.data().amount||0),0);
+  if(amount+pendingTotal>bal)return msg("Pending Withdraw সহ আপনার Available Balance যথেষ্ট নয়।");
+  await db.collection("withdrawals").add({
+   uid:currentUser.uid,name:userData.name,method,account,amount,status:"pending",createdAt:serverTime()
+  });
+  msg("Withdraw request submitted");
+  $("withdrawAmount").value="";$("withdrawAccount").value="";
+ }catch(e){err(e)}
+}
+
+/* MEMBER TASKS */
+async function loadMemberTasks(){
+ if(!currentUser)return;
+ $("ordinaryTasks").innerHTML="Loading...";
+ $("communityTasks").innerHTML="Loading...";
+ $("packageTasks").innerHTML="Loading...";
+ try{
+  const tasksSnap=await db.collection("tasks").where("active","==",true).get();
+  taskCache=tasksSnap.docs.map(d=>({id:d.id,...d.data()}));
+  
+  const ordinary=taskCache.filter(t=>t.type==="ordinary" && (!t.assignedUid || t.assignedUid===currentUser.uid));
+  if(!ordinary.length)$("ordinaryTasks").innerHTML="<p>আপনার জন্য এখন কোনো স্পেশাল অ্যাডমিন টাস্ক নেই।</p>";
+  else{
+   $("ordinaryTasks").innerHTML="";
+   for(const t of ordinary){
+    const submissionId=currentUser.uid+"_"+t.id;
+    const sub=await db.collection("submissions").doc(submissionId).get();
+    const status=sub.exists?sub.data().status:"Not Submitted";
+    $("ordinaryTasks").innerHTML+=`
+     <div class="item">
+      <div class="row"><b>${safe(t.title)}</b><span class="tag">${safe(status)}</span></div>
+      <p>${safe(t.details||"")}</p><p>Reward: <b>${money(t.rewardUSD)}</b></p>
+      <a href="${safe(t.url||"#")}" target="_blank" rel="noopener noreferrer">Open Task Link</a>
+      ${!sub.exists?`<textarea id="proof-${safe(t.id)}" placeholder="Proof link / details"></textarea><button onclick="submitOrdinaryProof('${safe(t.id)}')">Submit Proof</button>`:""}
+     </div>`;
+   }
+  }
+
+  const community=taskCache.filter(t=>t.type==="user_task" && t.creatorUid!==currentUser.uid && (t.approvedCount||0) < (t.maxWorkers||1));
+  if(!community.length)$("communityTasks").innerHTML="<p>এখন কোনো Community Task নেই।</p>";
+  else{
+   $("communityTasks").innerHTML="";
+   for(const t of community){
+    const submissionId=currentUser.uid+"_"+t.id;
+    const sub=await db.collection("submissions").doc(submissionId).get();
+    const status=sub.exists?sub.data().status:"Not Submitted";
+    $("communityTasks").innerHTML+=`
+     <div class="item">
+      <div class="row"><b>${safe(t.title)}</b><span class="tag">${safe(status)}</span></div>
+      <p>${safe(t.details||"")}</p>
+      <p>Reward: <b>${money(t.rewardUSD)}</b> | Slots: ${(t.maxWorkers||0)-(t.approvedCount||0)} remaining</p>
+      <a href="${safe(t.url||"#")}" target="_blank" rel="noopener noreferrer">Open Task Link</a>
+      ${!sub.exists?`<textarea id="proof-${safe(t.id)}" placeholder="Proof link / details"></textarea><button onclick="submitOrdinaryProof('${safe(t.id)}')">Submit Proof</button>`:""}
+     </div>`;
+   }
+  }
+
+  await loadPackageTasks();
+ }catch(e){console.error(e);err(e)}
+}
+
+async function submitOrdinaryProof(taskId){
+ try{
+  requireLogin();
+  const proof=$("proof-"+taskId)?.value.trim();
+  if(!proof)return msg("Proof লিখুন।");
+  const t=taskCache.find(x=>x.id===taskId);
+  if(!t)return msg("Task পাওয়া যায়নি।");
+  const ref=db.collection("submissions").doc(currentUser.uid+"_"+taskId);
+  await db.runTransaction(async tx=>{
+   const old=await tx.get(ref);
+   if(old.exists)throw new Error("এই টাস্কের Proof ইতিমধ্যে জমা হয়েছে।");
+   tx.set(ref,{
+    uid:currentUser.uid,taskId,title:t.title,proof,taskType:t.type||"ordinary",
+    rewardUSD:Number(t.rewardUSD||0),status:"pending",createdAt:serverTime()
+   });
+  });
+  msg("Proof submitted successfully");await loadMemberTasks();
+ }catch(e){err(e)}
+}
+
+/* POST COMMUNITY TASK */
+function calculateTaskCost() {
+    const reward = Number($("userTaskReward").value||0);
+    const workers = Number($("userTaskWorkers").value||0);
+    $("userTaskTotalCost").textContent = money(reward * workers);
+}
+async function submitUserTask() {
+    try {
+        requireLogin();
+        const title = $("userTaskTitle").value.trim();
+        const url = $("userTaskUrl").value.trim();
+        const details = $("userTaskDetails").value.trim();
+        const reward = Number($("userTaskReward").value);
+        const workers = Number($("userTaskWorkers").value);
+        
+        if(!title || !url || !details || !validAmount(reward) || workers<1 || !Number.isInteger(workers)){
+            return msg("সব তথ্য সঠিকভাবে দিন।");
+        }
+        
+        try{const parsed=new URL(url);if(!["http:","https:"].includes(parsed.protocol))return msg("সঠিক URL দিন।")}
+        catch{return msg("সঠিক URL দিন।")}
+
+        const totalCost = reward * workers;
+        const walletRef = db.collection("wallets").doc(currentUser.uid);
+        const taskRef = db.collection("tasks").doc();
+        const txRef = db.collection("transactions").doc();
+
+        await db.runTransaction(async tx => {
+            const wallet = await tx.get(walletRef);
+            const bal = Number(wallet.data()?.balance || 0);
+            if (bal < totalCost) throw new Error(`আপনার Wallet-এ পর্যাপ্ত ব্যালেন্স নেই। প্রয়োজন: ${money(totalCost)}`);
+            
+            tx.update(walletRef, {balance: increment(-totalCost), updatedAt: serverTime()});
+            
+            tx.set(taskRef, {
+                type: "user_task", title, url, details, rewardUSD: reward,
+                maxWorkers: workers, approvedCount: 0, creatorUid: currentUser.uid,
+                active: true, createdAt: serverTime()
+            });
+            
+            tx.set(txRef, {
+                uid: currentUser.uid, type: "task_creation_fee", amount: -totalCost,
+                note: `Posted Task: ${title}`, createdAt: serverTime()
+            });
+        });
+
+        msg("Task posted successfully!");
+        $("userTaskTitle").value=""; $("userTaskUrl").value=""; $("userTaskDetails").value="";
+        await loadDashboard();
+        showPage('home', document.querySelector('#memberNav button:nth-child(1)'));
+    } catch(e) { err(e); }
+}
+
+/* PACKAGE VIRTUAL TASKS */
+async function loadPackageTasks(){
+ if(!activeMembership){$("packageTasks").innerHTML="<p>প্যাকেজ টাস্ক করতে Active Package প্রয়োজন।</p>";return}
+ const pkg=await db.collection("packages").doc(activeMembership.packageId).get();
+ if(!pkg.exists){$("packageTasks").innerHTML="<p>Package পাওয়া যায়নি।</p>";return}
+ const pd=pkg.data(),day=today(),required=Number(pd.dailyTaskCount||0);
+ if(!required){$("packageTasks").innerHTML="<p>এই প্যাকেজে কোনো ডেইলি টাস্ক সেট করা নেই।</p>";return}
+
+ let done = 0;
+ const completedIds = new Set();
+ const promises = [];
+ for(let i=1; i<=required; i++){
+     const taskId = `pkg_task_${i}`;
+     const cid = `${currentUser.uid}_${activeMembership.id}_${taskId}_${day}`;
+     promises.push(db.collection("packageTaskCompletions").doc(cid).get().then(s=>{
+         if(s.exists){ done++; completedIds.add(taskId); }
+     }));
+ }
+ await Promise.all(promises);
+
+ let html="";
+ for(let i=1; i<=required; i++){
+  const taskId = `pkg_task_${i}`;
+  const cid = `${currentUser.uid}_${activeMembership.id}_${taskId}_${day}`;
+  const isCompleted = completedIds.has(taskId);
+  html+=`
+   <div class="item">
+    <div class="row"><b>Daily Click Task ${i}</b><span class="tag">${isCompleted?"Completed":"Waiting"}</span></div>
+    <p>৫ সেকেন্ড অপেক্ষা করে টাস্কটি সম্পন্ন করুন।</p>
+    <button ${isCompleted?"disabled":""} id="pkgbtn-${safe(taskId)}" onclick="startVirtualPackageTask('${safe(taskId)}','${safe(cid)}')">${isCompleted?"Completed":"Start 5-Second Task"}</button>
+   </div>`;
+ }
+ $("packageTasks").innerHTML=`<p>আজকের অগ্রগতি: <b>${done}/${required}</b></p>
+  <div class="progress"><div class="progress-bar" style="width:${Math.min(100,done/required*100)}%"></div></div>
+  <div class="item"><p>Daily Potential Income: <b>${money(pd.dailyIncomeUSD)}</b></p></div>`+html;
+ 
+ if(done>=required) {
+     const checkDaily = await db.collection("packageDailySubmissions").doc(`${currentUser.uid}_${activeMembership.id}_${day}`).get();
+     if(!checkDaily.exists) {
+         await createPackageDailyRecord(pd,required,day);
+     }
+ }
+}
+
+async function startVirtualPackageTask(taskId, completionId){
+ try{
+  requireLogin();
+  if(!activeMembership)return msg("Active Package নেই।");
+  const ref=db.collection("packageTaskCompletions").doc(completionId);
+  if((await ref.get()).exists)return msg("এই টাস্ক ইতিমধ্যে সম্পন্ন হয়েছে।");
+  
+  const btn=$("pkgbtn-"+taskId);
+  if(!btn)return;
+  btn.disabled=true;
+  let sec=5;
+  btn.textContent="অপেক্ষা করুন: "+sec+"s";
+  
+  const timer=setInterval(async()=>{
+   sec--;
+   if(btn)btn.textContent="অপেক্ষা করুন: "+sec+"s";
+   if(sec<=0){
+    clearInterval(timer);
+    try{
+     const check=await ref.get();
+     if(check.exists){msg("এই টাস্ক ইতিমধ্যে সম্পন্ন হয়েছে।");await loadPackageTasks();return}
+     await ref.set({
+      uid:currentUser.uid,membershipId:activeMembership.id,
+      packageId:activeMembership.packageId,taskId,day:today(),createdAt:serverTime()
+     });
+     msg("Task completed");
+     await loadPackageTasks();
+     await renderHomePackage();
+    }catch(e){if(btn)btn.disabled=false;err(e)}
+   }
+  },1000);
+ }catch(e){err(e)}
+}
+
+async function createPackageDailyRecord(pkg,required,day){
+ const id=`${currentUser.uid}_${activeMembership.id}_${day}`;
+ const ref=db.collection("packageDailySubmissions").doc(id);
+ const walletRef=db.collection("wallets").doc(currentUser.uid);
+ const transactionRef=db.collection("transactions").doc("package_day_"+id);
+
+ try {
+  await db.runTransaction(async tx=>{
+   const old=await tx.get(ref);
+   if(old.exists) return;
+
+   const amount = Number(pkg.dailyIncomeUSD || 0);
+   const wallet = await tx.get(walletRef);
+   
+   if(wallet.exists){
+    tx.update(walletRef,{balance:increment(amount),updatedAt:serverTime()});
+   }else{
+    tx.set(walletRef,{balance:amount,pending:0,updatedAt:serverTime()});
+   }
+
+   tx.set(ref,{
+    uid:currentUser.uid,membershipId:activeMembership.id,
+    packageId:activeMembership.packageId,packageName:pkg.name,day,
+    completedCount:required,requiredCount:required,
+    approvedAmount:amount,status:"approved",createdAt:serverTime()
+   });
+
+   tx.set(transactionRef,{
+    uid:currentUser.uid,type:"package_daily_income",amount,
+    packageId:activeMembership.packageId,day,
+    note:"Daily Task Income",createdAt:serverTime()
+   });
+  });
+  
+  msg("আজকের সব টাস্ক সম্পন্ন! আপনার Wallet-এ ইনকাম যোগ হয়েছে।");
+  await loadDashboard();
+ } catch(e) {
+  console.error("Instant Daily Credit Error:", e);
+ }
+}
+
+/* PACKAGES */
+async function loadMemberPackages(){
+ if(!currentUser)return;
+ const q=await db.collection("packages").where("active","==","true").get();
+ packageCache=q.docs.map(d=>({id:d.id,...d.data()}));
+ $("packageList").innerHTML="";
+ if(!packageCache.length)$("packageList").innerHTML="<p>এখন কোনো Package নেই।</p>";
+ packageCache.forEach(p=>{
+  const total=Number(p.dailyIncomeUSD||0)*Number(p.duration||0);
+  const profit=total-Number(p.priceUSD||0);
+  $("packageList").innerHTML+=`
+   <div class="item">
+    <h3>${safe(p.name)}</h3><p>${safe(p.details||"")}</p>
+    <p>Price: <b>${money(p.priceUSD)}</b></p>
+    <p>Duration: ${Number(p.duration||0)} Days</p>
+    <p>Daily Tasks: ${Number(p.dailyTaskCount||0)}</p>
+    <p>Daily Potential Income: ${money(p.dailyIncomeUSD)}</p><hr>
+    <p>Potential Total Income: <b>${money(total)}</b></p>
+    <p>Estimated Profit: <b class="${profit>=0?"good":"bad"}">${money(profit)}</b></p>
+    <button onclick="buyPackage('${safe(p.id)}')">Request Package</button>
+   </div>`;
+ });
+ if(activeMembership){
+  $("myPackage").innerHTML=`<div class="item"><div class="row"><b>${safe(activeMembership.packageName)}</b><span class="tag good">ACTIVE</span></div>
+   <p>Status: ${safe(activeMembership.status)}</p><p>Start: ${safe(activeMembership.startDate||"")}</p><p>End: ${safe(activeMembership.endDate||"")}</p></div>`;
+ }else $("myPackage").innerHTML="<p>আপনার কোনো Active Package নেই।</p>";
+}
+async function buyPackage(packageId){
+ try{
+  requireLogin();
+  const p=packageCache.find(x=>x.id===packageId);
+  if(!p)return msg("Package পাওয়া যায়নি।");
+  if(activeMembership)return msg("আপনার ইতিমধ্যে Active Package আছে।");
+  const old=await db.collection("packageRequests").where("uid","==",currentUser.uid).where("status","==","pending").limit(1).get();
+  if(!old.empty)return msg("আপনার একটি Package Request Pending আছে।");
+  const method=prompt("Payment Method লিখুন: bKash অথবা Nagad");
+  if(!method)return;
+  const normalized=method.trim().toLowerCase();
+  if(!["bkash","nagad"].includes(normalized))return msg("শুধু bKash অথবা Nagad নির্বাচন করুন।");
+  const txid=prompt("Payment Transaction ID লিখুন:");
+  if(!txid||!txid.trim())return;
+  await db.collection("packageRequests").add({
+   uid:currentUser.uid,name:userData.name,packageId,packageName:p.name,
+   priceUSD:Number(p.priceUSD||0),method:normalized==="bkash"?"bKash":"Nagad",
+   txid:txid.trim(),status:"pending",createdAt:serverTime()
+  });
+  msg("Package request submitted");
+ }catch(e){err(e)}
+}
+
+/* 3-GENERATION REFERRAL PAGE */
+async function loadReferrals(){
+ const code = userData.referralCode||"—";
+ $("myReferralCode").textContent=code;
+ const link = window.location.origin + window.location.pathname + "?ref=" + code;
+ $("myReferralLink").textContent=link;
+ $("myReferralLink").href=link;
+ 
+ const q = await db.collection("referrals").where("referrer","==",currentUser.uid).get();
+ if(q.empty) {
+     $("referralList").innerHTML="<h3>Referral Members (3 Generations)</h3><p>এখনো কেউ আপনার মাধ্যমে জয়েন করেনি।</p>";
+     return;
+ }
+ 
+ let gen1 = [], gen2 = [], gen3 = [];
+ q.docs.forEach(d => {
+     const data = d.data();
+     if(data.level === 1) gen1.push(data);
+     else if(data.level === 2) gen2.push(data);
+     else if(data.level === 3) gen3.push(data);
+ });
+
+ let html = `<h3>Referral Members</h3>`;
+ html += `<p><b>1st Generation:</b> ${gen1.length} members | <b>2nd Generation:</b> ${gen2.length} members | <b>3rd Generation:</b> ${gen3.length} members</p><hr>`;
+ 
+ q.docs.sort((a,b)=>(b.data().createdAt?.seconds||0)-(a.data().createdAt?.seconds||0)).forEach(d=>{
+     const x = d.data();
+     html += `<div class="item"><div class="row"><b>${safe(x.joinedName)}</b><span class="tag">Gen ${x.level}</span></div>
+     <p>Commission Earned: <b class="good">+${money(x.reward)}</b></p></div>`;
+ });
+ $("referralList").innerHTML = html;
+}
+
+function copyReferralCode(){
+ const c=userData.referralCode||"";
+ if(navigator.clipboard)navigator.clipboard.writeText(c).then(()=>msg("Code Copied!")).catch(()=>msg("Code: "+c));
+ else msg("Code: "+c);
+}
+function copyReferralLink(){
+ const c=userData.referralCode||"";
+ const link = window.location.origin + window.location.pathname + "?ref=" + c;
+ if(navigator.clipboard)navigator.clipboard.writeText(link).then(()=>msg("Link Copied!")).catch(()=>msg("Link: "+link));
+ else msg("Link: "+link);
+}
+
+/* GIFT CARD */
+async function redeemGift(){
+ try{
+  requireLogin();
+  const code=$("giftCode").value.trim().toUpperCase();
+  if(!code)return msg("Gift Card Code লিখুন।");
+  if(!/^[A-Z0-9_-]{3,80}$/.test(code))return msg("Gift Card Code সঠিক নয়.");
+  
+  const giftRef=db.collection("giftCards").doc(code);
+  const requestId=currentUser.uid+"_"+code;
+  const requestRef=db.collection("giftRedemptions").doc(requestId);
+  const walletRef=db.collection("wallets").doc(currentUser.uid);
+  const transactionRef=db.collection("transactions").doc("gift_"+requestId);
+
+  await db.runTransaction(async tx=>{
+   const gift = await tx.get(giftRef);
+   if(!gift.exists||gift.data().active!==true||Number(gift.data().remaining||0)<=0) {
+     throw new Error("Gift Card invalid অথবা ব্যবহারের লিমিট শেষ।");
+   }
+   const request = await tx.get(requestRef);
+   if(request.exists) {
+     throw new Error("আপনি ইতিমধ্যে এই Gift Card ব্যবহার করেছেন।");
+   }
+
+   const amount = Number(gift.data().amount);
+   const wallet = await tx.get(walletRef);
+
+   if(wallet.exists){
+    tx.update(walletRef,{balance:increment(amount),updatedAt:serverTime()});
+   }else{
+    tx.set(walletRef,{balance:amount,pending:0,updatedAt:serverTime()});
+   }
+
+   tx.update(giftRef,{remaining:increment(-1)});
+
+   tx.set(requestRef,{
+    uid:currentUser.uid,name:userData.name || "Member",code,
+    giftId:code,amount,status:"approved",createdAt:serverTime()
+   });
+
+   tx.set(transactionRef,{
+    uid:currentUser.uid,type:"gift",giftId:code,amount,
+    note:"Gift Card Redeemed",createdAt:serverTime()
+   });
+  });
+
+  $("giftCode").value="";
+  msg("অভিনন্দন! Gift Card-এর অর্থ সফলভাবে আপনার Wallet-এ যোগ হয়েছে।");
+  await loadDashboard(); 
+  await loadHistory();
+ }catch(e){err(e)}
+}
+
+/* HISTORY */
+async function loadHistory(){
+ if(!currentUser)return;
+ try{
+  const [t,d,w,p,g,pr]=await Promise.all([
+   db.collection("transactions").where("uid","==",currentUser.uid).get(),
+   db.collection("deposits").where("uid","==",currentUser.uid).get(),
+   db.collection("withdrawals").where("uid","==",currentUser.uid).get(),
+   db.collection("packageDailySubmissions").where("uid","==",currentUser.uid).get(),
+   db.collection("giftRedemptions").where("uid","==",currentUser.uid).get(),
+   db.collection("packageRequests").where("uid","==",currentUser.uid).get()
+  ]);
+  let arr=[];
+  t.forEach(x=>arr.push({type:"Transaction",...x.data()}));
+  d.forEach(x=>arr.push({type:"Deposit",...x.data()}));
+  w.forEach(x=>arr.push({type:"Withdraw",...x.data()}));
+  p.forEach(x=>arr.push({type:"Package Income",...x.data()}));
+  g.forEach(x=>arr.push({type:"Gift Card",...x.data()}));
+  pr.forEach(x=>arr.push({type:"Package Request",...x.data()}));
+  arr.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+  $("historyList").innerHTML=arr.length?arr.map(x=>`
+   <div class="item"><div class="row"><b>${safe(x.type)}</b><span class="tag">${safe(x.status||x.type)}</span></div>
+   <p>${money(x.amount??x.approvedAmount??x.priceUSD)} ${safe(x.method||x.note||x.code||"")}</p></div>`).join(""):"<p>কোনো History নেই।</p>";
+ }catch(e){err(e)}
+}
+
+/* ADMIN MAIN */
+async function loadAdmin(){if(!isAdmin)return;await loadAdminSection("overview")}
+async function loadAdminSection(name){
+ if(!isAdmin)return;
+ try{
+  if(name==="overview"){
+   const [m,d,w,p]=await Promise.all([
+    db.collection("users").get(),
+    db.collection("deposits").where("status","==","pending").get(),
+    db.collection("withdrawals").where("status","==","pending").get(),
+    db.collection("submissions").where("status","==","pending").get()
+   ]);
+   $("adminMembers").textContent=m.size;$("adminDeposits").textContent=d.size;
+   $("adminWithdrawals").textContent=w.size;$("adminEarnings").textContent=p.size;
+  }
+  if(name==="members")await adminMembers();
+  if(name==="packages")await adminPackages();
+  if(name==="tasks")await adminTasks();
+  if(name==="proofs")await adminProofs();
+  if(name==="daily")await adminDaily();
+  if(name==="deposits")await adminDeposits();
+  if(name==="withdrawals")await adminWithdrawals();
+  if(name==="settings")await adminSettings();
+  if(name==="refsettings")await adminRefSettings();
+  if(name==="gifts")await adminGifts();
+ }catch(e){err(e)}
+}
+async function adminMembers(){
+ requireAdmin();
+ const q=await db.collection("users").get();
+ $("adminMemberList").innerHTML=q.docs.map(d=>{
+  const m=d.data();
+  return `<div class="item"><b>${safe(m.name)}</b><p>${safe(m.email)} | ${safe(m.phone)}</p><small>UID: ${safe(d.id)}</small></div>`;
+ }).join("")||"<p>No members</p>";
+}
+
+/* PACKAGE ADMIN */
+function clearPackageForm(){
+ ["pkgId","pkgName","pkgPrice","pkgDuration","pkgTaskCount","pkgDailyIncome","pkgDetails"].forEach(id=>$(id).value="");
+ $("pkgActive").value="true";
+}
+async function savePackage(){
+ try{
+  requireAdmin();
+  const name=$("pkgName").value.trim(),price=Number($("pkgPrice").value);
+  const duration=Number($("pkgDuration").value),count=Number($("pkgTaskCount").value);
+  const income=Number($("pkgDailyIncome").value);
+  if(!name||!Number.isFinite(price)||price<0||!Number.isInteger(duration)||duration<1||!Number.isInteger(count)||count<1||!Number.isFinite(income)||income<0)
+   return msg("Package-এর তথ্য সঠিকভাবে দিন।");
+  const data={name,priceUSD:price,duration,dailyTaskCount:count,dailyIncomeUSD:income,
+   details:$("pkgDetails").value.trim(),active:$("pkgActive").value==="true",updatedAt:serverTime()};
+  const id=$("pkgId").value;
+  if(id)await db.collection("packages").doc(id).update(data);
+  else await db.collection("packages").add({...data,createdAt:serverTime()});
+  clearPackageForm();msg("Package saved");await adminPackages();
+ }catch(e){err(e)}
+}
+async function adminPackages(){
+ requireAdmin();
+ const q=await db.collection("packages").get();
+ packageCache=q.docs.map(d=>({id:d.id,...d.data()}));
+ $("adminPackageList").innerHTML=packageCache.map(p=>`
+  <div class="item"><b>${safe(p.name)}</b>
+   <p>${money(p.priceUSD)} | ${p.duration} Days | ${p.dailyTaskCount} tasks/day | ${money(p.dailyIncomeUSD)}/day</p>
+   <p>Status: ${p.active?"Active":"Inactive"}</p>
+   <button onclick="editPackage('${safe(p.id)}')">Edit</button>
+   <button class="secondary" onclick="togglePackage('${safe(p.id)}',${!p.active})">${p.active?"Deactivate":"Activate"}</button>
+  </div>`).join("")||"<p>No packages</p>";
+ const r=await db.collection("packageRequests").where("status","==","pending").get();
+ $("packageRequestsList").innerHTML=r.docs.map(d=>{
+  const x=d.data();
+  return `<div class="item"><b>${safe(x.name)} — ${safe(x.packageName)}</b>
+   <p>${safe(x.method)} | TxID: ${safe(x.txid)} | ${money(x.priceUSD)}</p><p>UID: ${safe(x.uid)}</p>
+   <button class="success" onclick="approvePackageRequest('${safe(d.id)}')">Approve</button>
+   <button class="danger" onclick="rejectDoc('packageRequests','${safe(d.id)}')">Reject</button></div>`;
+ }).join("")||"<p>No pending requests</p>";
+}
+async function editPackage(id){
+ try{
+  requireAdmin();
+  const d=await db.collection("packages").doc(id).get();
+  if(!d.exists)return msg("Package পাওয়া যায়নি।");
+  const p=d.data();
+  $("pkgId").value=id;$("pkgName").value=p.name||"";$("pkgPrice").value=p.priceUSD;
+  $("pkgDuration").value=p.duration;$("pkgTaskCount").value=p.dailyTaskCount;
+  $("pkgDailyIncome").value=p.dailyIncomeUSD;$("pkgDetails").value=p.details||"";
+  $("pkgActive").value=String(!!p.active);window.scrollTo(0,0);
+ }catch(e){err(e)}
+}
+async function togglePackage(id,active){
+ try{requireAdmin();await db.collection("packages").doc(id).update({active});msg("Package updated");await adminPackages()}
+ catch(e){err(e)}
+}
+async function approvePackageRequest(id){
+ try{
+  requireAdmin();
+  const ref=db.collection("packageRequests").doc(id);
+  await db.runTransaction(async tx=>{
+   const r=await tx.get(ref);
+   if(!r.exists||r.data().status!=="pending")throw new Error("Request আর Pending নেই।");
+   const x=r.data(),pkgRef=db.collection("packages").doc(x.packageId);
+   const p=await tx.get(pkgRef);
+   const mref=db.collection("memberships").doc(x.uid);
+   const old=await tx.get(mref);
+   if(!p.exists||!p.data().active)throw new Error("Package inactive অথবা পাওয়া যায়নি।");
+   if(old.exists&&old.data().status==="active")throw new Error("Member-এর Active Package আছে।");
+   const start=new Date(),end=new Date(start.getTime()+Number(p.data().duration)*86400000);
+   tx.set(mref,{
+    uid:x.uid,packageId:x.packageId,packageName:p.data().name,status:"active",
+    startDate:start.toISOString().slice(0,10),endDate:end.toISOString().slice(0,10),
+    createdAt:serverTime()
+   });
+   tx.update(ref,{status:"approved",reviewedAt:serverTime()});
+  });
+  msg("Package approved");await adminPackages();
+ }catch(e){err(e)}
+}
+
+/* TASK ADMIN */
+async function createTask(){
+ try{
+  requireAdmin();
+  const type="ordinary",title=$("taskTitle").value.trim();
+  if(!title)return msg("Task Title লিখুন।");
+  
+  const url=$("taskUrl").value.trim(),details=$("taskDetails").value.trim();
+  const reward=Number($("taskReward").value),uid=$("taskUid").value.trim();
+  if(!url||!details||!Number.isFinite(reward)||reward<0)return msg("Ordinary Task-এর সব তথ্য দিন।");
+  try{const parsed=new URL(url);if(!["http:","https:"].includes(parsed.protocol))return msg("সঠিক Task URL দিন।")}
+  catch{return msg("সঠিক Task URL দিন।")}
+  
+  if(uid) {
+      const member=await db.collection("users").doc(uid).get();
+      if(!member.exists)return msg("এই Member UID পাওয়া যায়নি।");
+  }
+  
+  let data={type,title,url,details,rewardUSD:reward,assignedUid:uid||null,active:true,createdAt:serverTime()};
+  
+  await db.collection("tasks").add(data);
+  ["taskTitle","taskUrl","taskDetails","taskReward","taskUid"].forEach(id=>$(id).value="");
+  msg("Task created");await adminTasks();
+ }catch(e){err(e)}
+}
+async function adminTasks(){
+ requireAdmin();
+ const q=await db.collection("tasks").get();
+ taskCache=q.docs.map(d=>({id:d.id,...d.data()}));
+ $("adminTaskList").innerHTML=taskCache.map(t=>`
+  <div class="item">
+   <div class="row"><b>${safe(t.title)}</b><span class="tag">${t.type==="user_task"?"Community Task":"Admin Task"}</span></div>
+   <p>Reward: ${money(t.rewardUSD)}</p>
+   <p>Status: ${t.active?"Active":"Inactive"}</p>
+   <button class="secondary" onclick="toggleTask('${safe(t.id)}',${!t.active})">${t.active?"Deactivate":"Activate"}</button>
+   <button class="danger" onclick="deleteTask('${safe(t.id)}')">Delete</button>
+  </div>`).join("")||"<p>No tasks</p>";
+}
+async function toggleTask(id,active){
+ try{requireAdmin();await db.collection("tasks").doc(id).update({active});await adminTasks()}
+ catch(e){err(e)}
+}
+async function deleteTask(id){
+ if(!confirm("এই Task মুছে ফেলবেন?"))return;
+ try{requireAdmin();await db.collection("tasks").doc(id).delete();msg("Task deleted");await adminTasks()}
+ catch(e){err(e)}
+}
+
+/* PROOF REVIEW */
+async function adminProofs(){
+ requireAdmin();
+ const q=await db.collection("submissions").where("status","==","pending").get();
+ $("proofList").innerHTML=q.docs.map(d=>{
+  const x=d.data();
+  return `<div class="item"><b>${safe(x.title)}</b> <span class="tag">${x.taskType==="user_task"?"Community Task":"Admin Task"}</span>
+   <p>Worker UID: ${safe(x.uid)}</p>
+   <p>Proof: ${safe(x.proof)}</p><p>Reward to credit: ${money(x.rewardUSD)}</p>
+   <button class="success" onclick="reviewOrdinaryProof('${safe(d.id)}',true)">Approve & Pay Worker</button>
+   <button class="danger" onclick="reviewOrdinaryProof('${safe(d.id)}',false)">Reject</button></div>`;
+ }).join("")||"<p>No pending proofs</p>";
+}
+async function reviewOrdinaryProof(id,approve){
+ try{
+  requireAdmin();
+  const ref=db.collection("submissions").doc(id);
+  await db.runTransaction(async tx=>{
+   const s=await tx.get(ref);
+   if(!s.exists||s.data().status!=="pending")throw new Error("এই Proof ইতিমধ্যে Review হয়েছে।");
+   const x=s.data();
+   let taskRef=null,taskSnap=null,walletRef=null,walletSnap=null,transactionRef=null,transactionSnap=null,reward=0;
+   
+   taskRef=db.collection("tasks").doc(x.taskId);
+   taskSnap=await tx.get(taskRef);
+   
+   if(approve){
+    if(!taskSnap.exists) throw new Error("Task ডাটাবেসে পাওয়া যায়নি।");
+    reward=Number(taskSnap.data().rewardUSD);
+    if(!validAmount(reward))throw new Error("Task Reward সঠিক নয়।");
+    
+    walletRef=db.collection("wallets").doc(x.uid);
+    walletSnap=await tx.get(walletRef);
+    transactionRef=db.collection("transactions").doc("proof_"+id);
+    transactionSnap=await tx.get(transactionRef);
+    if(transactionSnap.exists)throw new Error("এই Proof-এর Reward আগে যোগ হয়েছে।");
+   }
+   
+   if(approve){
+    if(walletSnap.exists){
+     tx.update(walletRef,{balance:increment(reward),updatedAt:serverTime()});
+    }else{
+     tx.set(walletRef,{balance:reward,pending:0,updatedAt:serverTime()});
+    }
+    tx.set(transactionRef,{uid:x.uid,type:"task_reward",amount:reward,taskId:x.taskId,note:`Reward: ${x.title}`,createdAt:serverTime()});
+    
+    if(taskSnap.data().type === "user_task"){
+        let newCount = (taskSnap.data().approvedCount||0) + 1;
+        let updateData = {approvedCount: newCount};
+        if(newCount >= taskSnap.data().maxWorkers) updateData.active = false;
+        tx.update(taskRef, updateData);
+    }
+   }
+   tx.update(ref,{status:approve?"approved":"rejected",reviewedAt:serverTime(),...(approve?{approvedReward:reward}:{})});
+  });
+  msg(approve?"Proof approved and worker credited":"Proof rejected");await adminProofs();
+ }catch(e){err(e)}
+}
+
+async function adminDaily(){
+ requireAdmin();
+ const q=await db.collection("packageDailySubmissions").orderBy("createdAt", "desc").limit(20).get();
+ $("dailyList").innerHTML=q.docs.map(d=>{
+  const x=d.data();
+  return `<div class="item"><b>${safe(x.packageName||"Package Daily Income")}</b>
+   <p>UID: ${safe(x.uid)}</p><p>Date: ${safe(x.day)} | Completed: ${x.completedCount}/${x.requiredCount}</p>
+   <p>Income Credited: <b>${money(x.approvedAmount)}</b> <span class="tag good">Auto Paid</span></p></div>`;
+ }).join("")||"<p>No daily income records yet</p>";
+}
+
+async function adminDeposits(){
+ requireAdmin();
+ const q=await db.collection("deposits").where("status","==","pending").get();
+ $("depositList").innerHTML=q.docs.map(d=>{
+  const x=d.data();
+  return `<div class="item"><b>${safe(x.name)}</b><p>UID: ${safe(x.uid)}</p>
+   <p>${safe(x.method)} | ${money(x.amount)} | TxID: ${safe(x.txid)}</p>
+   <button class="success" onclick="reviewDeposit('${safe(d.id)}',true)">Approve & Credit</button>
+   <button class="danger" onclick="reviewDeposit('${safe(d.id)}',false)">Reject</button></div>`;
+ }).join("")||"<p>No pending deposits</p>";
+}
+async function reviewDeposit(id,approve){
+ try{
+  requireAdmin();
+  const ref=db.collection("deposits").doc(id);
+  await db.runTransaction(async tx=>{
+   const d=await tx.get(ref);
+   if(!d.exists||d.data().status!=="pending")throw new Error("Request already reviewed");
+   const x=d.data();
+   let walletRef=null,walletSnap=null,transactionRef=null,transactionSnap=null,amount=0;
+   if(approve){
+    amount=Number(x.amount);
+    if(!validAmount(amount))throw new Error("Deposit amount invalid.");
+    walletRef=db.collection("wallets").doc(x.uid);
+    transactionRef=db.collection("transactions").doc("deposit_"+id);
+    walletSnap=await tx.get(walletRef);
+    transactionSnap=await tx.get(transactionRef);
+    if(transactionSnap.exists)throw new Error("Deposit transaction already exists.");
+   }
+   if(approve){
+    if(walletSnap.exists)tx.update(walletRef,{balance:increment(amount),updatedAt:serverTime()});
+    else tx.set(walletRef,{balance:amount,pending:0,updatedAt:serverTime()});
+    tx.set(transactionRef,{uid:x.uid,type:"deposit",amount,note:"Deposit Approved",createdAt:serverTime()});
+   }
+   tx.update(ref,{status:approve?"approved":"rejected",reviewedAt:serverTime()});
+  });
+  msg(approve?"Deposit approved and credited":"Deposit rejected");await adminDeposits();
+ }catch(e){err(e)}
+}
+
+async function adminWithdrawals(){
+ requireAdmin();
+ const q=await db.collection("withdrawals").where("status","==","pending").get();
+ $("withdrawList").innerHTML=q.docs.map(d=>{
+  const x=d.data();
+  return `<div class="item"><b>${safe(x.name)}</b><p>UID: ${safe(x.uid)}</p>
+   <p>${safe(x.method)} | ${money(x.amount)}</p><p>Account: ${safe(x.account)}</p>
+   <button class="success" onclick="payWithdraw('${safe(d.id)}')">Mark Paid</button>
+   <button class="danger" onclick="rejectDoc('withdrawals','${safe(d.id)}')">Reject</button></div>`;
+ }).join("")||"<p>No pending withdrawals</p>";
+}
+async function payWithdraw(id){
+ try{
+  requireAdmin();
+  const ref=db.collection("withdrawals").doc(id);
+  await db.runTransaction(async tx=>{
+   const d=await tx.get(ref);
+   if(!d.exists||d.data().status!=="pending")throw new Error("Request already reviewed");
+   const x=d.data(),wr=db.collection("wallets").doc(x.uid);
+   const w=await tx.get(wr);
+   const tr=db.collection("transactions").doc("withdraw_"+id);
+   const oldTr=await tx.get(tr);
+   const bal=Number(w.data()?.balance||0),amount=Number(x.amount);
+   if(!validAmount(amount))throw new Error("Invalid withdrawal amount.");
+   if(!w.exists||bal<amount)throw new Error("Member wallet balance is insufficient.");
+   if(oldTr.exists)throw new Error("Withdrawal transaction already exists.");
+   tx.update(ref,{status:"paid",paidAt:serverTime()});
+   tx.update(wr,{balance:increment(-amount),updatedAt:serverTime()});
+   tx.set(tr,{uid:x.uid,type:"withdraw",amount:-amount,note:"Withdrawal Paid",createdAt:serverTime()});
+  });
+  msg("Withdrawal marked as paid");await adminWithdrawals();
+ }catch(e){err(e)}
+}
+async function rejectDoc(collection,id){
+ try{
+  requireAdmin();
+  if(!["withdrawals","packageRequests"].includes(collection))throw new Error("Invalid request type.");
+  const ref=db.collection(collection).doc(id);
+  await db.runTransaction(async tx=>{
+   const snap=await tx.get(ref);
+   if(!snap.exists||snap.data().status!=="pending")throw new Error("Request আর Pending নেই।");
+   tx.update(ref,{status:"rejected",reviewedAt:serverTime()});
+  });
+  msg("Rejected");
+  await loadAdminSection(collection==="withdrawals"?"withdrawals":"packages");
+ }catch(e){err(e)}
+}
+
+/* SETTINGS & REF SETTINGS */
+async function adminSettings(){
+ requireAdmin();
+ const d=await db.collection("settings").doc("main").get(),x=d.exists?d.data():{};
+ $("setBkash").value=x.bkash||"";
+ $("setNagad").value=x.nagad||"";
+ $("setMinWithdraw").value=x.minWithdraw||0;
+}
+async function saveSettings(){
+ try{
+  requireAdmin();
+  const min=Number($("setMinWithdraw").value||0);
+  if(!Number.isFinite(min)||min<0)return msg("Minimum Withdraw সঠিকভাবে লিখুন।");
+  await db.collection("settings").doc("main").set({
+   bkash:$("setBkash").value.trim(),nagad:$("setNagad").value.trim(),minWithdraw:min
+  },{merge:true});
+  msg("Settings saved");await loadSettingsForMember();
+ }catch(e){err(e)}
+}
+
+async function adminRefSettings(){
+ requireAdmin();
+ const d=await db.collection("settings").doc("main").get(),x=d.exists?d.data():{};
+ $("setSignupBonus").value=x.signupBonus??1.00;
+ $("setGen1").value=x.gen1??0.50;
+ $("setGen2").value=x.gen2??0.25;
+ $("setGen3").value=x.gen3??0.10;
+}
+async function saveRefSettings(){
+ try{
+  requireAdmin();
+  const signupBonus=Number($("setSignupBonus").value||0);
+  const gen1=Number($("setGen1").value||0);
+  const gen2=Number($("setGen2").value||0);
+  const gen3=Number($("setGen3").value||0);
+  if(!Number.isFinite(signupBonus)||signupBonus<0||!Number.isFinite(gen1)||!Number.isFinite(gen2)||!Number.isFinite(gen3))
+   return msg("সব মান সঠিকভাবে লিখুন।");
+  await db.collection("settings").doc("main").set({
+   signupBonus, gen1, gen2, gen3
+  },{merge:true});
+  msg("Referral & Bonus settings saved successfully!");
+ }catch(e){err(e)}
+}
+
+/* GIFT CARDS */
+async function createGift(){
+ try{
+  requireAdmin();
+  const code=$("newGiftCode").value.trim().toUpperCase(),amount=Number($("newGiftAmount").value);
+  const limit=Number($("newGiftLimit").value||1);
+  if(!/^[A-Z0-9_-]{3,80}$/.test(code)||!validAmount(amount)||limit<1)return msg("সঠিক Gift Code, Amount ও Limit দিন।");
+  
+  const ref=db.collection("giftCards").doc(code);
+  const old=await ref.get();
+  if(old.exists)return msg("এই Gift Code আগে তৈরি করা হয়েছে।");
+  
+  await ref.set({code,amount,remaining:limit,active:true,createdAt:serverTime()});
+  $("newGiftCode").value="";$("newGiftAmount").value="";$("newGiftLimit").value="1";
+  msg("Gift Card created");await adminGifts();
+ }catch(e){err(e)}
+}
+async function adminGifts(){
+ requireAdmin();
+ const q=await db.collection("giftCards").get();
+ $("giftAdminList").innerHTML=q.docs.map(d=>{
+  const x=d.data();
+  return `<div class="item"><b>${safe(x.code)}</b><p>${money(x.amount)} | Remaining Limit: ${Number(x.remaining||0)}</p><p>Status: ${x.active?"Active":"Inactive"}</p></div>`;
+ }).join("")||"<p>No Gift Cards</p>";
+
+ const requests=await db.collection("giftRedemptions").orderBy("createdAt", "desc").limit(20).get();
+ $("giftRequestList").innerHTML=requests.docs.map(d=>{
+  const x=d.data();
+  return `<div class="item"><b>${safe(x.name||"Member")}</b>
+   <p>UID: ${safe(x.uid)}</p><p>Gift Code: ${safe(x.code)} | Amount: <b>${money(x.amount)}</b></p>
+   <span class="tag good">Redeemed</span></div>`;
+ }).join("")||"<p>No Gift Card redemptions yet</p>";
+}
+</script>
+</body>
+</html>
